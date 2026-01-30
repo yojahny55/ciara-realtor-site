@@ -191,5 +191,39 @@ describe('Tailwind v4 Configuration', () => {
       expect(fs.existsSync(path.join(fontsDir, 'dm-sans-500.woff2'))).toBe(true);
       expect(fs.existsSync(path.join(fontsDir, 'dm-sans-600.woff2'))).toBe(true);
     });
+
+    it('should have valid font files (not error pages)', () => {
+      const fontsDir = path.join(process.cwd(), 'public/fonts');
+      const fontFiles = [
+        'cormorant-garamond-300.woff2',
+        'cormorant-garamond-400.woff2',
+        'cormorant-garamond-500.woff2',
+        'cormorant-garamond-600.woff2',
+        'cormorant-garamond-400-italic.woff2',
+        'dm-sans-300.woff2',
+        'dm-sans-400.woff2',
+        'dm-sans-500.woff2',
+        'dm-sans-600.woff2',
+      ];
+
+      for (const fontFile of fontFiles) {
+        const fontPath = path.join(fontsDir, fontFile);
+        const stats = fs.statSync(fontPath);
+
+        // Real woff2 fonts are 10KB+, error pages are ~1.6KB
+        expect(stats.size).toBeGreaterThan(10000);
+      }
+    });
+
+    it('should have woff2 magic bytes (not HTML)', () => {
+      const fontsDir = path.join(process.cwd(), 'public/fonts');
+      const fontPath = path.join(fontsDir, 'dm-sans-400.woff2');
+      const buffer = fs.readFileSync(fontPath);
+
+      // woff2 files start with 'wOF2' magic bytes (0x774F4632)
+      // HTML files start with '<!DO' (0x3C21444F)
+      const magicBytes = buffer.slice(0, 4).toString('ascii');
+      expect(magicBytes).toBe('wOF2');
+    });
   });
 });

@@ -32,6 +32,11 @@ describe('Design Tokens', () => {
       expect(colors.terracottaLight).toBe('#FDEEE8');
     });
 
+    it('should export glow colors', () => {
+      expect(colors.goldGlow).toBe('rgba(212, 175, 55, 0.3)');
+      expect(colors.terracottaGlow).toBe('rgba(199, 91, 57, 0.2)');
+    });
+
     it('should export white variants', () => {
       expect(colors.offWhite).toBe('#FAFAFA');
       expect(colors.white).toBe('#FFFFFF');
@@ -54,12 +59,26 @@ describe('Design Tokens', () => {
 
   describe('Spacing Scale (AC #5)', () => {
     it('should use 4px base unit', () => {
-      expect(spacing.xs).toBe('0.5rem'); // 8px (2 * 4px)
-      expect(spacing.sm).toBe('1rem');   // 16px (4 * 4px)
-      expect(spacing.md).toBe('2rem');   // 32px (8 * 4px)
+      expect(spacing['1']).toBe('0.25rem'); // 4px (base unit)
+      expect(spacing['2']).toBe('0.5rem');  // 8px (2 * 4px)
+      expect(spacing['4']).toBe('1rem');    // 16px (4 * 4px)
+      expect(spacing['8']).toBe('2rem');    // 32px (8 * 4px)
     });
 
-    it('should define all spacing tokens', () => {
+    it('should define numbered spacing tokens', () => {
+      expect(spacing).toHaveProperty('1');
+      expect(spacing).toHaveProperty('2');
+      expect(spacing).toHaveProperty('3');
+      expect(spacing).toHaveProperty('4');
+      expect(spacing).toHaveProperty('5');
+      expect(spacing).toHaveProperty('6');
+      expect(spacing).toHaveProperty('8');
+      expect(spacing).toHaveProperty('10');
+      expect(spacing).toHaveProperty('12');
+      expect(spacing).toHaveProperty('16');
+    });
+
+    it('should define named spacing tokens', () => {
       expect(spacing).toHaveProperty('xs');
       expect(spacing).toHaveProperty('sm');
       expect(spacing).toHaveProperty('md');
