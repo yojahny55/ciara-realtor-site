@@ -13,29 +13,31 @@ const {
   type = 'website',
 } = Astro.props;
 
+import { getAlternateUrl, getEnglishUrl } from '@/i18n';
+import type { Lang } from '@/i18n';
+
 // Get current language from Astro i18n context
-const lang = Astro.currentLocale ?? 'en';
+const lang = (Astro.currentLocale ?? 'en') as Lang;
 
 // Generate canonical URL
 const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site);
 
-// Generate hreflang URLs (fully-qualified, absolute URLs required)
+// Use Astro.site for consistent URL generation across environments
+const siteUrl = Astro.site?.origin ?? 'https://ciararuiz.com';
+
+// Generate hreflang URLs using route-aware translation
 const currentPath = Astro.url.pathname;
-const siteUrl = 'https://ciararuiz.com';
+const alternateLang: Lang = lang === 'en' ? 'es' : 'en';
 
-// Properly handle language prefix replacement for hreflang
-// If path has a language prefix, replace it; otherwise prepend it
-const stripLangPrefix = (path: string): string => {
-  return path.replace(/^\/(en|es)\//, '/');
-};
-const basePath = stripLangPrefix(currentPath);
-const enPath = `/en${basePath}`;
-const esPath = `/es${basePath}`;
+// Get properly translated alternate URLs
+const enUrl = lang === 'en' ? currentPath : getAlternateUrl(currentPath, lang, 'en');
+const esUrl = lang === 'es' ? currentPath : getAlternateUrl(currentPath, lang, 'es');
 
-// For alternate language, swap /en/ with /es/ and vice versa
-const alternateEnUrl = `${siteUrl}${enPath}`;
-const alternateEsUrl = `${siteUrl}${esPath}`;
-const defaultUrl = `${siteUrl}/en/`;
+// Fully-qualified URLs for hreflang tags
+const alternateEnUrl = `${siteUrl}${enUrl}`;
+const alternateEsUrl = `${siteUrl}${esUrl}`;
+// x-default should point to English version of CURRENT page, not homepage
+const defaultUrl = `${siteUrl}${getEnglishUrl(currentPath)}`;
 
 // Format title with site suffix
 const fullTitle = `${title} | Ciara Ruiz Real Estate`;

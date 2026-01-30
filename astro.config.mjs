@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import { fileURLToPath } from 'node:url';
 
 import cloudflare from '@astrojs/cloudflare';
 import preact from '@astrojs/preact';
@@ -9,7 +10,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-   site: 'https://ciararuiz.com', // Update with actual domain
+  site: 'https://ciararuiz.com', // Update with actual domain
 
   // NOTE: In Astro 5, 'static' is the default and works like old 'hybrid'
   // Pages prerender by default; use `export const prerender = false` for SSR pages
@@ -39,6 +40,11 @@ export default defineConfig({
   },
 
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
+      },
+    },
   }
 });

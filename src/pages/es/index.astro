@@ -1,0 +1,44 @@
+---
+/**
+ * Spanish Homepage
+ *
+ * Main landing page for Spanish-speaking visitors.
+ * Route: /es/
+ */
+
+import Page from '@/layouts/Page.astro';
+import { useTranslations } from '@/i18n';
+
+const lang = 'es';
+const t = useTranslations(lang);
+---
+
+<Page
+  title="Ciara Ruiz - Agente de Bienes Raíces en Austin"
+  description="Agente de bienes raíces bilingüe de confianza en Austin, TX. Especializada en ayudar a familias a comprar, vender e invertir en propiedades. Asesoría experta en inglés y español."
+>
+  <div class="text-center py-16 px-8">
+    <h1 class="text-4xl mb-4 text-black">Bienvenido a Ciara Ruiz Real Estate</h1>
+    <p class="text-xl mb-8 text-gray-600">Tu socio de confianza en bienes raíces de Austin</p>
+
+    <div class="flex gap-4 justify-center">
+      <button type="button" class="px-6 py-3 border-none rounded font-medium cursor-pointer bg-gold text-black">
+        {t('cta.search')}
+      </button>
+      <button type="button" class="px-6 py-3 border-none rounded font-medium cursor-pointer bg-gray-100 text-black">
+        {t('cta.value')}
+      </button>
+    </div>
+  </div>
+
+  <nav aria-label="Navegación del sitio">
+    <ul>
+      <li><a href="/es/">{t('nav.home')}</a></li>
+      <li><a href="/es/propiedades/">{t('nav.properties')}</a></li>
+      <li><a href="/es/sobre-ciara/">{t('nav.about')}</a></li>
+      <li><a href="/es/guias/">{t('nav.guides')}</a></li>
+      <li><a href="/es/blog/">{t('nav.blog')}</a></li>
+      <li><a href="/es/contacto/">{t('nav.contact')}</a></li>
+    </ul>
+  </nav>
+</Page>
