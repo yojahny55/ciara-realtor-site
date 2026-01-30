@@ -1,0 +1,47 @@
+/**
+ * Design Token Variables (CSS Custom Properties)
+ *
+ * These tokens are used throughout the application for consistency.
+ * Many are also mapped to Tailwind utilities via @theme in tailwind.css.
+ *
+ * Source: demo6 design system + architecture.md
+ */
+
+:root {
+  /* ═══════════════════════════════════════════════════════════════
+     SPACING TOKENS
+     Base unit: 4px
+     Use Tailwind's spacing utilities (p-*, m-*) when possible
+  ═══════════════════════════════════════════════════════════════ */
+  --space-xs: 0.5rem;   /* 8px */
+  --space-sm: 1rem;     /* 16px */
+  --space-md: 2rem;     /* 32px */
+  --space-lg: 4rem;     /* 64px */
+  --space-xl: 8rem;     /* 128px */
+  --space-2xl: 12rem;   /* 192px */
+
+  /* ═══════════════════════════════════════════════════════════════
+     TYPOGRAPHY VARIABLES (Font Families)
+     These are duplicated in tailwind.css @theme for utility classes
+  ═══════════════════════════════════════════════════════════════ */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* ═══════════════════════════════════════════════════════════════
+     TRANSITION & ANIMATION TIMING
+     Use for custom animations not covered by Tailwind utilities
+  ═══════════════════════════════════════════════════════════════ */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --duration-fast: 0.2s;
+  --duration-normal: 0.4s;
+  --duration-slow: 0.8s;
+
+  /* ═══════════════════════════════════════════════════════════════
+     GLOW & OVERLAY EFFECTS
+     RGBA values for layering and visual effects
+  ═══════════════════════════════════════════════════════════════ */
+  --gold-glow: rgba(212, 175, 55, 0.3);
+  --terracotta-glow: rgba(199, 91, 57, 0.2);
+}
