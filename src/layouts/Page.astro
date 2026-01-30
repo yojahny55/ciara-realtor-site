@@ -1,0 +1,43 @@
+---
+import Base from './Base.astro';
+import type { PageLayoutProps } from './types';
+import { maxWidthClasses } from './types';
+
+interface Props extends PageLayoutProps {}
+
+const {
+  title,
+  description,
+  image,
+  canonical,
+  noindex,
+  type,
+  maxWidth = 'lg',
+  noPadding = false,
+} = Astro.props;
+
+// Build class list, filtering empty strings to avoid trailing spaces
+const containerClass = maxWidthClasses[maxWidth];
+const paddingClass = noPadding ? '' : 'px-4 md:px-6 lg:px-8';
+const mainClasses = ['mx-auto', containerClass, paddingClass].filter(Boolean).join(' ');
+---
+
+<Base
+  title={title}
+  description={description}
+  image={image}
+  canonical={canonical}
+  noindex={noindex}
+  type={type}
+>
+  <!-- Header Slot -->
+  <slot name="header" />
+
+  <!-- Main Content Area -->
+  <main id="main-content" class={mainClasses}>
+    <slot />
+  </main>
+
+  <!-- Footer Slot -->
+  <slot name="footer" />
+</Base>

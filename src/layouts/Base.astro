@@ -1,0 +1,123 @@
+---
+import '../styles/global.css';
+import type { BaseLayoutProps } from './types';
+
+interface Props extends BaseLayoutProps {}
+
+const {
+  title,
+  description,
+  image = '/og-default.jpg',
+  canonical,
+  noindex = false,
+  type = 'website',
+} = Astro.props;
+
+// Get current language from Astro i18n context
+const lang = Astro.currentLocale ?? 'en';
+
+// Generate canonical URL
+const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site);
+
+// Generate hreflang URLs (fully-qualified, absolute URLs required)
+const currentPath = Astro.url.pathname;
+const siteUrl = 'https://ciararuiz.com';
+
+// Properly handle language prefix replacement for hreflang
+// If path has a language prefix, replace it; otherwise prepend it
+const stripLangPrefix = (path: string): string => {
+  return path.replace(/^\/(en|es)\//, '/');
+};
+const basePath = stripLangPrefix(currentPath);
+const enPath = `/en${basePath}`;
+const esPath = `/es${basePath}`;
+
+// For alternate language, swap /en/ with /es/ and vice versa
+const alternateEnUrl = `${siteUrl}${enPath}`;
+const alternateEsUrl = `${siteUrl}${esPath}`;
+const defaultUrl = `${siteUrl}/en/`;
+
+// Format title with site suffix
+const fullTitle = `${title} | Ciara Ruiz Real Estate`;
+
+// Absolute image URL for OG tags
+const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Font Preloading (WOFF2 with crossorigin - critical for LCP) -->
+    <link
+      rel="preload"
+      href="/fonts/cormorant-garamond-400.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/dm-sans-400.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <!-- Primary Meta Tags -->
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Hreflang Tags for Bilingual SEO (reciprocal links required) -->
+    <link rel="alternate" hreflang="en" href={alternateEnUrl} />
+    <link rel="alternate" hreflang="es" href={alternateEsUrl} />
+    <link rel="alternate" hreflang="x-default" href={defaultUrl} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={imageUrl} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+  </head>
+  <body>
+    <!-- Skip to Main Content Link (Accessibility) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Page Content Slot -->
+    <!-- Note: Pages using Base.astro directly MUST include <main id="main-content"> -->
+    <!-- Page.astro handles this automatically -->
+    <slot />
+  </body>
+</html>
+
+<style>
+  /* Skip Link Styling - visible only on focus */
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    z-index: 9999;
+    padding: 0.5rem 1rem;
+    background: var(--color-gold);
+    color: var(--color-black);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .skip-link:focus {
+    left: 1rem;
+    top: 1rem;
+  }
+</style>

@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Test Base Layout"
+  description="Testing the Base.astro layout with all meta tags and SEO features"
+  image="/og-default.jpg"
+>
+  <!-- When using Base.astro directly, you MUST include main with id="main-content" for skip link -->
+  <main id="main-content" style="padding: 2rem; font-family: sans-serif;">
+    <h1>Test Base Layout</h1>
+    <p>This page uses Base.astro directly to test:</p>
+    <ul>
+      <li>HTML5 document structure</li>
+      <li>Dynamic lang attribute (should be "en" or "es")</li>
+      <li>Meta tags (charset, viewport)</li>
+      <li>SEO tags (title, description, OG, Twitter)</li>
+      <li>Font preloading (check Network tab)</li>
+      <li>Hreflang tags for bilingual SEO</li>
+      <li>Skip to main content link (press Tab to see)</li>
+    </ul>
+    <p><strong>Instructions:</strong> Open DevTools and check:</p>
+    <ol>
+      <li>View Page Source to see all meta tags</li>
+      <li>Network tab to verify font preloads</li>
+      <li>Press Tab to see skip link appear</li>
+    </ol>
+  </main>
+</Base>
