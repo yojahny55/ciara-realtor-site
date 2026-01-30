@@ -1,5 +1,6 @@
 ---
-
+import { TestIsland } from '../components/test-island';
+import { ErrorBoundary } from '../components/error-boundary';
 ---
 
 <html lang="en">
@@ -12,6 +13,11 @@
 		<title>Astro</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<h1>Realtor Site - Astro 5 + Cloudflare + Preact</h1>
+		<div class="max-w-xl mx-auto my-8 p-4">
+			<ErrorBoundary client:visible>
+				<TestIsland client:visible />
+			</ErrorBoundary>
+		</div>
 	</body>
 </html>
