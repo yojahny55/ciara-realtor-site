@@ -35,7 +35,7 @@ export const routeMap: Record<string, string> = {
  */
 export function getAlternateUrl(path: string, fromLang: Lang, toLang: Lang): string {
   // Strip language prefix and trailing slash for matching
-  let pathWithoutLang = path.replace(/^\/(en|es)/, '').replace(/\/$/, '');
+  const pathWithoutLang = path.replace(/^\/(en|es)/, '').replace(/\/$/, '');
 
   // Handle root path (empty after stripping)
   if (!pathWithoutLang || pathWithoutLang === '/') {
@@ -62,7 +62,7 @@ export function getAlternateUrl(path: string, fromLang: Lang, toLang: Lang): str
  * @returns English URL path
  */
 export function getEnglishUrl(path: string): string {
-  let pathWithoutLang = path.replace(/^\/(en|es)/, '').replace(/\/$/, '');
+  const pathWithoutLang = path.replace(/^\/(en|es)/, '').replace(/\/$/, '');
 
   // Handle root path (empty after stripping)
   if (!pathWithoutLang || pathWithoutLang === '/') {
