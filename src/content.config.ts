@@ -10,7 +10,7 @@ const blog = defineCollection({
   schema: z.object({
     title: z.string().min(1).max(100),
     description: z.string().min(1).max(160), // SEO meta description limit
-    pubDate: z.coerce.date(),
+    date: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
     author: z.string().default('Ciara Ruiz'),
     image: z.string().optional(), // Path to hero image
@@ -25,6 +25,7 @@ const blog = defineCollection({
     tags: z.array(z.string()).default([]),
     relatedContent: z.array(z.string()).default([]), // Slugs of related posts
     draft: z.boolean().default(false),
+    lang: z.enum(['en', 'es']),
   }),
 });
 
@@ -34,10 +35,11 @@ const guides = defineCollection({
   schema: z.object({
     title: z.string().min(1).max(100),
     description: z.string().min(1).max(160),
-    audience: z.enum(['buyer', 'seller', 'investor', 'renter']),
+    type: z.enum(['buyer', 'seller', 'investor', 'renter']),
     downloadUrl: z.string().optional(), // Path to PDF download
     relatedContent: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
+    lang: z.enum(['en', 'es']),
   }),
 });
 
@@ -53,6 +55,7 @@ const neighborhoods = defineCollection({
     amenities: z.array(z.string()).default([]),
     image: z.string().optional(),
     imageAlt: z.string().optional(),
+    lang: z.enum(['en', 'es']),
   }),
 });
 
@@ -62,11 +65,12 @@ const testimonials = defineCollection({
   schema: z.object({
     name: z.string().min(1).max(100),
     quote: z.string().min(10).max(500),
-    role: z.string().optional(), // "First-Time Buyer", "Seller", etc.
+    type: z.string().optional(), // "First-Time Buyer", "Seller", etc.
     date: z.coerce.date(),
     image: z.string().optional(), // Client photo path
     imageAlt: z.string().optional(),
     featured: z.boolean().default(false),
+    lang: z.enum(['en', 'es']),
   }),
 });
 

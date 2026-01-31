@@ -22,11 +22,11 @@ describe('getBlogPosts', () => {
     const mockPosts = [
       {
         id: 'en/2026-01-30-post1.mdx',
-        data: { pubDate: new Date('2026-01-30'), draft: false },
+        data: { date: new Date('2026-01-30'), draft: false },
       },
       {
         id: 'es/2026-01-30-post2.mdx',
-        data: { pubDate: new Date('2026-01-29'), draft: false },
+        data: { date: new Date('2026-01-29'), draft: false },
       },
     ] as unknown as CollectionEntry<'blog'>[];
 
@@ -44,11 +44,11 @@ describe('getBlogPosts', () => {
     const mockPosts = [
       {
         id: 'en/2026-01-30-post1.mdx',
-        data: { pubDate: new Date('2026-01-30'), draft: false },
+        data: { date: new Date('2026-01-30'), draft: false },
       },
       {
         id: 'es/2026-01-30-post2.mdx',
-        data: { pubDate: new Date('2026-01-29'), draft: false },
+        data: { date: new Date('2026-01-29'), draft: false },
       },
     ] as unknown as CollectionEntry<'blog'>[];
 
@@ -68,11 +68,11 @@ describe('getBlogPosts', () => {
     const mockPosts = [
       {
         id: 'en/2026-01-30-published.mdx',
-        data: { pubDate: new Date('2026-01-30'), draft: false },
+        data: { date: new Date('2026-01-30'), draft: false },
       },
       {
         id: 'en/2026-01-29-draft.mdx',
-        data: { pubDate: new Date('2026-01-29'), draft: true },
+        data: { date: new Date('2026-01-29'), draft: true },
       },
     ] as unknown as CollectionEntry<'blog'>[];
 
@@ -92,11 +92,11 @@ describe('getBlogPosts', () => {
     const mockPosts = [
       {
         id: 'en/2026-01-30-published.mdx',
-        data: { pubDate: new Date('2026-01-30'), draft: false },
+        data: { date: new Date('2026-01-30'), draft: false },
       },
       {
         id: 'en/2026-01-29-draft.mdx',
-        data: { pubDate: new Date('2026-01-29'), draft: true },
+        data: { date: new Date('2026-01-29'), draft: true },
       },
     ] as unknown as CollectionEntry<'blog'>[];
 
@@ -113,15 +113,15 @@ describe('getBlogPosts', () => {
     const mockPosts = [
       {
         id: 'en/2026-01-15-old.mdx',
-        data: { pubDate: new Date('2026-01-15'), draft: false },
+        data: { date: new Date('2026-01-15'), draft: false },
       },
       {
         id: 'en/2026-01-30-new.mdx',
-        data: { pubDate: new Date('2026-01-30'), draft: false },
+        data: { date: new Date('2026-01-30'), draft: false },
       },
       {
         id: 'en/2026-01-20-middle.mdx',
-        data: { pubDate: new Date('2026-01-20'), draft: false },
+        data: { date: new Date('2026-01-20'), draft: false },
       },
     ] as unknown as CollectionEntry<'blog'>[];
 

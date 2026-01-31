@@ -23,7 +23,7 @@ export async function getBlogPosts(lang: Lang): Promise<BlogPost[]> {
   });
 
   // CRITICAL: Must sort manually - getCollection() order is non-deterministic in Astro 5
-  return posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+  return posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 }
 
 /**
