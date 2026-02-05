@@ -1,0 +1,45 @@
+---
+import Page from '../layouts/Page.astro';
+---
+
+<Page
+  title="Test Page Layout"
+  description="Testing the Page.astro layout with header, footer, and main content slots"
+  maxWidth="lg"
+>
+  <header slot="header" style="background: #f3f4f6; padding: 1rem; border-bottom: 2px solid #e5e7eb;">
+    <div style="max-width: 1024px; margin: 0 auto;">
+      <h1 style="margin: 0; font-size: 1.5rem;">Header Slot Content</h1>
+      <nav>
+        <a href="/">Home</a> | <a href="/test-base-layout">Base Test</a>
+      </nav>
+    </div>
+  </header>
+
+  <div style="padding: 2rem 0;">
+    <h1>Test Page Layout</h1>
+    <p>This page uses Page.astro to test:</p>
+    <ul>
+      <li>Extends Base.astro (inherits all SEO features)</li>
+      <li>Header slot (see top)</li>
+      <li>Main content area with max-width container (lg = 1024px)</li>
+      <li>Responsive padding (changes on mobile/desktop)</li>
+      <li>Footer slot (see bottom)</li>
+      <li>Skip to main content (press Tab)</li>
+    </ul>
+
+    <h2>Container Max-Width Test</h2>
+    <p>This content is constrained to <code>max-w-screen-lg</code> (1024px) with responsive padding.</p>
+    <p>Resize the browser to see padding adjust: <code>px-4</code> on mobile, <code>md:px-6</code> on tablet, <code>lg:px-8</code> on desktop.</p>
+
+    <h2>Semantic HTML Test</h2>
+    <p>This content is inside a <code>&lt;main id="main-content"&gt;</code> element, which is the skip link target.</p>
+  </div>
+
+  <footer slot="footer" style="background: #1f2937; color: white; padding: 2rem; margin-top: 2rem;">
+    <div style="max-width: 1024px; margin: 0 auto;">
+      <h2 style="margin: 0 0 0.5rem; font-size: 1.25rem;">Footer Slot Content</h2>
+      <p style="margin: 0;">Copyright © 2026 Ciara Ruiz Real Estate</p>
+    </div>
+  </footer>
+</Page>

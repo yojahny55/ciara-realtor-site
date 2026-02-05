@@ -1,0 +1,38 @@
+---
+/**
+ * Design Tokens Demo Page
+ *
+ * Visual verification of all configured design tokens.
+ * This page tests AC #1-9 in a browser environment.
+ *
+ * To view: npm run dev → http://localhost:4321/design-tokens-demo
+ */
+
+import { DesignTokensTest } from '../components/design-tokens-test';
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Design Tokens Demo | Realtor Site</title>
+    <link rel="preload" as="font" href="/fonts/cormorant-garamond-400.woff2" type="font/woff2" crossorigin />
+    <link rel="preload" as="font" href="/fonts/dm-sans-400.woff2" type="font/woff2" crossorigin />
+  </head>
+  <body>
+    <DesignTokensTest client:visible />
+
+    <footer class="bg-charcoal text-cream p-8 mt-12">
+      <div class="container mx-auto text-center">
+        <p class="font-body text-sm">
+          Design Tokens Demo - Story 1.2: Configure Tailwind & Design Tokens
+        </p>
+        <p class="font-body text-xs text-charcoal-soft mt-2">
+          ✓ AC #1: Colors | ✓ AC #2-4: Typography | ✓ AC #5: Spacing | ✓ AC #6: Shadows | ✓ AC #7: TypeScript Export | ✓ AC #8: Motion Preference | ✓ AC #9: Timing
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

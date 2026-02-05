@@ -1,0 +1,81 @@
+---
+/**
+ * Language Toggle Component
+ *
+ * Displays current language and provides a link to alternate language version.
+ * Uses route-aware URL translation for proper Spanish slug handling.
+ */
+
+import { getAlternateUrl } from '@/i18n';
+import type { Lang } from '@/i18n';
+
+interface Props {
+  currentLang: Lang;
+  currentPath: string;
+}
+
+const { currentLang, currentPath } = Astro.props;
+
+// Determine alternate language
+const alternateLang: Lang = currentLang === 'en' ? 'es' : 'en';
+const alternateLangLabel = alternateLang === 'en' ? 'English' : 'Español';
+
+// Generate alternate URL using route-aware translation
+const alternateUrl = getAlternateUrl(currentPath, currentLang, alternateLang);
+
+// Accessibility label
+const ariaLabel = currentLang === 'en'
+  ? 'Switch to Spanish'
+  : 'Cambiar a inglés';
+---
+
+<div class="language-toggle">
+  <span class="current-lang" aria-current="page">
+    {currentLang.toUpperCase()}
+  </span>
+  <span class="separator">|</span>
+  <a
+    href={alternateUrl}
+    class="alternate-lang"
+    aria-label={ariaLabel}
+    hreflang={alternateLang}
+  >
+    {alternateLangLabel}
+  </a>
+</div>
+
+<style>
+  .language-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .current-lang {
+    color: var(--color-black);
+    font-weight: 600;
+  }
+
+  .separator {
+    color: var(--color-gray-400);
+  }
+
+  .alternate-lang {
+    color: var(--color-gray-600);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .alternate-lang:hover {
+    color: var(--color-gold);
+    text-decoration: underline;
+  }
+
+  .alternate-lang:focus {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+</style>

@@ -1,0 +1,61 @@
+/**
+ * Design Token Variables (CSS Custom Properties)
+ *
+ * These tokens are used throughout the application for consistency.
+ * Many are also mapped to Tailwind utilities via @theme in tailwind.css.
+ *
+ * Source: demo6 design system + architecture.md
+ */
+
+:root {
+  /* ═══════════════════════════════════════════════════════════════
+     SPACING TOKENS
+     Base unit: 4px
+     Use Tailwind's spacing utilities (p-*, m-*) when possible
+  ═══════════════════════════════════════════════════════════════ */
+
+  /* Numbered scale (4px base unit) */
+  --space-1: 0.25rem;   /* 4px  - base unit */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+
+  /* Named scale (semantic aliases) */
+  --space-xs: 0.5rem;   /* 8px */
+  --space-sm: 1rem;     /* 16px */
+  --space-md: 2rem;     /* 32px */
+  --space-lg: 4rem;     /* 64px */
+  --space-xl: 8rem;     /* 128px */
+  --space-2xl: 12rem;   /* 192px */
+
+  /* ═══════════════════════════════════════════════════════════════
+     TYPOGRAPHY VARIABLES (Font Families)
+     These are duplicated in tailwind.css @theme for utility classes
+  ═══════════════════════════════════════════════════════════════ */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* ═══════════════════════════════════════════════════════════════
+     TRANSITION & ANIMATION TIMING
+     Use for custom animations not covered by Tailwind utilities
+  ═══════════════════════════════════════════════════════════════ */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --duration-fast: 0.2s;
+  --duration-normal: 0.4s;
+  --duration-slow: 0.8s;
+
+  /* ═══════════════════════════════════════════════════════════════
+     GLOW & OVERLAY EFFECTS
+     RGBA values for layering and visual effects
+  ═══════════════════════════════════════════════════════════════ */
+  --gold-glow: rgba(212, 175, 55, 0.3);
+  --terracotta-glow: rgba(199, 91, 57, 0.2);
+}

@@ -1,23 +1,11 @@
 ---
-import { TestIsland } from '../components/test-island';
-import { ErrorBoundary } from '../components/error-boundary';
----
+/**
+ * Root Redirect
+ *
+ * Redirects visitors from root (/) to the English homepage (/en/)
+ * This ensures all pages have explicit language prefixes.
+ */
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Realtor Site - Astro 5 + Cloudflare + Preact</h1>
-		<div class="max-w-xl mx-auto my-8 p-4">
-			<ErrorBoundary client:visible>
-				<TestIsland client:visible />
-			</ErrorBoundary>
-		</div>
-	</body>
-</html>
+// Redirect to English homepage
+return Astro.redirect('/en/', 302);
+---

@@ -1,0 +1,54 @@
+---
+import Base from './Base.astro';
+import LanguageToggle from '@/components/common/language-toggle.astro';
+import type { PageLayoutProps } from './types';
+import { maxWidthClasses } from './types';
+import type { Lang } from '@/i18n';
+
+interface Props extends PageLayoutProps {}
+
+const {
+  title,
+  description,
+  image,
+  canonical,
+  noindex,
+  type,
+  maxWidth = 'lg',
+  noPadding = false,
+} = Astro.props;
+
+// Get current language and path for language toggle
+const currentLang = (Astro.currentLocale ?? 'en') as Lang;
+const currentPath = Astro.url.pathname;
+
+// Build class list, filtering empty strings to avoid trailing spaces
+const containerClass = maxWidthClasses[maxWidth];
+const paddingClass = noPadding ? '' : 'px-4 md:px-6 lg:px-8';
+const mainClasses = ['mx-auto', containerClass, paddingClass].filter(Boolean).join(' ');
+---
+
+<Base
+  title={title}
+  description={description}
+  image={image}
+  canonical={canonical}
+  noindex={noindex}
+  type={type}
+>
+  <!-- Header with Language Toggle -->
+  <header class="flex justify-end items-center px-4 py-2 md:px-6">
+    <LanguageToggle currentLang={currentLang} currentPath={currentPath} />
+  </header>
+
+  <!-- Header Slot for additional header content -->
+  <slot name="header" />
+
+  <!-- Main Content Area -->
+  <main id="main-content" class={mainClasses}>
+    <slot />
+  </main>
+
+  <!-- Footer Slot -->
+  <slot name="footer" />
+</Base>

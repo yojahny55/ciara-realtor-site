@@ -1,0 +1,48 @@
+---
+/**
+ * Example Bilingual Page
+ *
+ * Demonstrates the static path generation pattern for bilingual pages.
+ * This page will be generated for both /en/example/ and /es/example/
+ */
+
+import Page from '@/layouts/Page.astro';
+import { getStaticPathsForLanguages, useTranslations } from '@/i18n';
+import type { Lang } from '@/i18n';
+
+export function getStaticPaths() {
+  return getStaticPathsForLanguages();
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = useTranslations(lang);
+---
+
+<Page
+  title={lang === 'en' ? 'Example Page' : 'Página de Ejemplo'}
+  description={lang === 'en' ? 'Example bilingual page demonstrating i18n patterns' : 'Página bilingüe de ejemplo que demuestra patrones de i18n'}
+>
+  <h1>{lang === 'en' ? 'Example Bilingual Page' : 'Página Bilingüe de Ejemplo'}</h1>
+
+  <p>
+    {lang === 'en'
+      ? 'This page demonstrates the bilingual routing pattern using Astro\'s built-in i18n.'
+      : 'Esta página demuestra el patrón de enrutamiento bilingüe usando el i18n integrado de Astro.'}
+  </p>
+
+  <h2>{lang === 'en' ? 'Navigation Example' : 'Ejemplo de Navegación'}</h2>
+  <ul>
+    <li>{t('nav.home')}</li>
+    <li>{t('nav.properties')}</li>
+    <li>{t('nav.about')}</li>
+    <li>{t('nav.guides')}</li>
+    <li>{t('nav.blog')}</li>
+    <li>{t('nav.contact')}</li>
+  </ul>
+
+  <h2>{lang === 'en' ? 'Call-to-Action Example' : 'Ejemplo de Llamados a la Acción'}</h2>
+  <button type="button">{t('cta.search')}</button>
+  <button type="button">{t('cta.value')}</button>
+  <button type="button">{t('cta.schedule')}</button>
+  <button type="button">{t('cta.download')}</button>
+</Page>

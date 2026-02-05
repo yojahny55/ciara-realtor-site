@@ -1,1 +1,84 @@
-@import "tailwindcss";
+/**
+ * Global Stylesheet
+ *
+ * Import order:
+ * 1. Font declarations (highest priority)
+ * 2. Design tokens (CSS custom properties)
+ * 3. Tailwind v4 configuration (utilities + theme)
+ * 4. Base reset styles
+ */
+
+/* Font declarations */
+@import "./fonts.css";
+
+/* Design token variables */
+@import "./tokens.css";
+
+/* Tailwind v4 configuration */
+@import "./tailwind.css";
+
+/* ═══════════════════════════════════════════════════════════════
+   BASE RESET STYLES (from demo6)
+═══════════════════════════════════════════════════════════════ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-charcoal);
+  background-color: var(--color-cream);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TYPOGRAPHY UTILITIES
+═══════════════════════════════════════════════════════════════ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+a {
+  color: var(--color-gold-dark);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-out-expo);
+}
+
+a:hover {
+  color: var(--color-gold);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   UTILITY CLASSES
+═══════════════════════════════════════════════════════════════ */
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-sm);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 var(--space-md);
+  }
+}

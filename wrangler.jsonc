@@ -10,20 +10,35 @@
     "directory": "dist"
   },
 
-  // KV namespace for lead queue (create in CF dashboard, update IDs)
+  // KV namespace for lead queue
   "kv_namespaces": [
     {
       "binding": "LEAD_QUEUE",
-      "id": "YOUR_KV_NAMESPACE_ID",
-      "preview_id": "YOUR_KV_PREVIEW_NAMESPACE_ID"
+      "id": "9bc08fa727324482865dd39836168f56",
+      "preview_id": "65f47622c54147619dea9d884caa9378"
     }
   ],
 
-  // Environment variables (secrets via `wrangler secret put`)
+  // Environment variables (non-secret)
   "vars": {
     "BRIDGE_API_URL": "https://api.bridgedataoutput.com"
   },
-	"observability": {
+
+  "observability": {
     "enabled": true
+  },
+
+  // Environment-specific configurations
+  "env": {
+    "production": {
+      "vars": {
+        "BRIDGE_API_URL": "https://api.bridgedataoutput.com"
+      }
+    },
+    "preview": {
+      "vars": {
+        "BRIDGE_API_URL": "https://api.bridgedataoutput.com"
+      }
+    }
   }
 }
