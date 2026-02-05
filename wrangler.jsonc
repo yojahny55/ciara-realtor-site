@@ -14,8 +14,8 @@
   "kv_namespaces": [
     {
       "binding": "LEAD_QUEUE",
-      "id": "YOUR_KV_NAMESPACE_ID",
-      "preview_id": "YOUR_KV_PREVIEW_NAMESPACE_ID"
+      "id": "9bc08fa727324482865dd39836168f56",
+      "preview_id": "65f47622c54147619dea9d884caa9378"
     }
   ],
 
