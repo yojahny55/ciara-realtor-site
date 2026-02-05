@@ -9,6 +9,15 @@ export const GET: APIRoute = async ({ locals }) => {
   try {
     const runtime = locals.runtime;
 
+    // Debug: Log what's available
+    const debugInfo = {
+      hasRuntime: !!runtime,
+      hasEnv: !!runtime?.env,
+      runtimeKeys: runtime ? Object.keys(runtime) : [],
+      envKeys: runtime?.env ? Object.keys(runtime.env) : [],
+      localsKeys: Object.keys(locals)
+    };
+
     // Determine environment and select appropriate KV binding
     // Preview environments use LEAD_QUEUE_preview, production uses LEAD_QUEUE
     const kvProduction = runtime?.env?.LEAD_QUEUE;
@@ -23,7 +32,7 @@ export const GET: APIRoute = async ({ locals }) => {
         status: 'error',
         message: 'No LEAD_QUEUE KV binding found',
         hint: 'Check wrangler.jsonc configuration and Cloudflare Pages environment variables',
-        available_bindings: Object.keys(runtime?.env || {})
+        debug: debugInfo
       }, { status: 500 });
     }
     const testKey = 'test:deployment-verification';
