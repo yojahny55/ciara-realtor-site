@@ -9,16 +9,23 @@ export const GET: APIRoute = async ({ locals }) => {
   try {
     const runtime = locals.runtime;
 
-    // Check if KV binding exists
-    if (!runtime?.env?.LEAD_QUEUE) {
+    // Determine environment and select appropriate KV binding
+    // Preview environments use LEAD_QUEUE_preview, production uses LEAD_QUEUE
+    const kvProduction = runtime?.env?.LEAD_QUEUE;
+    const kvPreview = runtime?.env?.LEAD_QUEUE_preview;
+
+    const kv = kvPreview || kvProduction;
+    const environment = kvPreview ? 'preview' : 'production';
+
+    // Check if any KV binding exists
+    if (!kv) {
       return Response.json({
         status: 'error',
-        message: 'LEAD_QUEUE KV binding not found',
-        hint: 'Check wrangler.jsonc configuration'
+        message: 'No LEAD_QUEUE KV binding found',
+        hint: 'Check wrangler.jsonc configuration and Cloudflare Pages environment variables',
+        available_bindings: Object.keys(runtime?.env || {})
       }, { status: 500 });
     }
-
-    const kv = runtime.env.LEAD_QUEUE;
     const testKey = 'test:deployment-verification';
     const testValue = {
       timestamp: new Date().toISOString(),
@@ -47,13 +54,15 @@ export const GET: APIRoute = async ({ locals }) => {
     return Response.json({
       status: 'success',
       message: 'LEAD_QUEUE KV binding is working correctly',
+      environment: environment,
       test: {
         written: testValue,
         retrieved: parsedValue,
         match: JSON.stringify(testValue) === JSON.stringify(parsedValue)
       },
       binding: {
-        name: 'LEAD_QUEUE',
+        name: environment === 'preview' ? 'LEAD_QUEUE_preview' : 'LEAD_QUEUE',
+        namespace: environment === 'preview' ? 'realtor-site-lead-queue-preview' : 'realtor-site-lead-queue',
         operations: ['put', 'get', 'delete']
       }
     }, {
