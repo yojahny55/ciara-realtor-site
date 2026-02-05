@@ -5,26 +5,45 @@
 
 import type { APIRoute } from 'astro';
 
-export const GET: APIRoute = async ({ locals }) => {
+export const GET: APIRoute = async (context) => {
   try {
+    const { locals } = context;
     const runtime = locals.runtime;
 
-    // Debug: Log what's available
+    // Debug: Check multiple possible locations for KV bindings
     const debugInfo = {
       hasRuntime: !!runtime,
       hasEnv: !!runtime?.env,
       runtimeKeys: runtime ? Object.keys(runtime) : [],
       envKeys: runtime?.env ? Object.keys(runtime.env) : [],
-      localsKeys: Object.keys(locals)
+      localsKeys: Object.keys(locals),
+      contextKeys: Object.keys(context),
+      // Check if there's a platform object (Cloudflare Pages specific)
+      hasPlatform: !!(context as any).platform,
+      platformKeys: (context as any).platform ? Object.keys((context as any).platform) : [],
+      platformEnvKeys: (context as any).platform?.env ? Object.keys((context as any).platform.env) : []
     };
 
-    // Determine environment and select appropriate KV binding
-    // Preview environments use LEAD_QUEUE_preview, production uses LEAD_QUEUE
-    const kvProduction = runtime?.env?.LEAD_QUEUE;
-    const kvPreview = runtime?.env?.LEAD_QUEUE_preview;
+    // Try multiple possible locations for KV bindings
+    // 1. Via runtime.env (Workers standard)
+    const kvFromRuntime = runtime?.env?.LEAD_QUEUE || runtime?.env?.LEAD_QUEUE_preview;
 
-    const kv = kvPreview || kvProduction;
-    const environment = kvPreview ? 'preview' : 'production';
+    // 2. Via context.platform.env (Cloudflare Pages specific)
+    const platformEnv = (context as any).platform?.env;
+    const kvFromPlatform = platformEnv?.LEAD_QUEUE || platformEnv?.LEAD_QUEUE_preview;
+
+    // 3. Via context.env (alternative)
+    const kvFromContext = (context as any).env?.LEAD_QUEUE || (context as any).env?.LEAD_QUEUE_preview;
+
+    const kv = kvFromRuntime || kvFromPlatform || kvFromContext;
+
+    // Determine which source worked
+    let bindingSource = 'none';
+    if (kvFromRuntime) bindingSource = 'runtime.env';
+    else if (kvFromPlatform) bindingSource = 'platform.env';
+    else if (kvFromContext) bindingSource = 'context.env';
+
+    const environment = (runtime?.env?.LEAD_QUEUE_preview || platformEnv?.LEAD_QUEUE_preview) ? 'preview' : 'production';
 
     // Check if any KV binding exists
     if (!kv) {
@@ -64,6 +83,7 @@ export const GET: APIRoute = async ({ locals }) => {
       status: 'success',
       message: 'LEAD_QUEUE KV binding is working correctly',
       environment: environment,
+      bindingSource: bindingSource,
       test: {
         written: testValue,
         retrieved: parsedValue,
