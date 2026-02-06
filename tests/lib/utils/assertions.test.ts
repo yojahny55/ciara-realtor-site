@@ -7,8 +7,15 @@ import { assertDefined, assertServerSide } from '@lib/utils';
 
 describe('assertServerSide', () => {
   it('does not throw when window is undefined (server-side)', () => {
-    // window is undefined in Node.js/Vitest by default
+    // Temporarily stub window as undefined to simulate server environment
+    const originalWindow = global.window;
+    // @ts-expect-error - intentionally setting window to undefined for test
+    delete global.window;
+
     expect(() => assertServerSide('testFunction')).not.toThrow();
+
+    // Restore window
+    global.window = originalWindow;
   });
 
   it('throws when window is defined (browser-like)', () => {

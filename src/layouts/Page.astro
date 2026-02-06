@@ -1,6 +1,6 @@
 ---
 import Base from './Base.astro';
-import LanguageToggle from '@/components/common/language-toggle.astro';
+import Header from '@/components/common/header.astro';
 import type { PageLayoutProps } from './types';
 import { maxWidthClasses } from './types';
 import type { Lang } from '@/i18n';
@@ -18,9 +18,8 @@ const {
   noPadding = false,
 } = Astro.props;
 
-// Get current language and path for language toggle
+// Get current language for header
 const currentLang = (Astro.currentLocale ?? 'en') as Lang;
-const currentPath = Astro.url.pathname;
 
 // Build class list, filtering empty strings to avoid trailing spaces
 const containerClass = maxWidthClasses[maxWidth];
@@ -36,13 +35,8 @@ const mainClasses = ['mx-auto', containerClass, paddingClass].filter(Boolean).jo
   noindex={noindex}
   type={type}
 >
-  <!-- Header with Language Toggle -->
-  <header class="flex justify-end items-center px-4 py-2 md:px-6">
-    <LanguageToggle currentLang={currentLang} currentPath={currentPath} />
-  </header>
-
-  <!-- Header Slot for additional header content -->
-  <slot name="header" />
+  <!-- Main Site Header -->
+  <Header lang={currentLang} />
 
   <!-- Main Content Area -->
   <main id="main-content" class={mainClasses}>

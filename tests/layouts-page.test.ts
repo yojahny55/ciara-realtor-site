@@ -25,10 +25,11 @@ describe('Page.astro Layout', () => {
     expect(content).toContain('interface Props extends PageLayoutProps');
   });
 
-  it('should include named slot for header', () => {
+  it('should render main site header component', () => {
     const content = readFileSync(pageLayoutPath, 'utf-8');
 
-    expect(content).toContain('<slot name="header"');
+    expect(content).toContain('import Header from');
+    expect(content).toContain('<Header');
   });
 
   it('should include named slot for footer', () => {
