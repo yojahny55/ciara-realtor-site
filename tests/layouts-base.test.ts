@@ -105,8 +105,8 @@ describe('Base.astro Layout', () => {
     expect(content).toContain('as="font"');
     expect(content).toContain('type="font/woff2"');
     expect(content).toContain('crossorigin');
-    expect(content).toContain('cormorant-garamond');
-    expect(content).toContain('dm-sans');
+    expect(content).toContain('cinzel');
+    expect(content).toContain('josefin-sans');
   });
 
   it('should include SEO meta tags (title, description, OG, Twitter)', () => {

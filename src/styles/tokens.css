@@ -4,7 +4,7 @@
  * These tokens are used throughout the application for consistency.
  * Many are also mapped to Tailwind utilities via @theme in tailwind.css.
  *
- * Source: demo6 design system + architecture.md
+ * Source: demo8 (Glassmorphism) design system + architecture.md
  */
 
 :root {
@@ -26,36 +26,62 @@
   --space-12: 3rem;     /* 48px */
   --space-16: 4rem;     /* 64px */
 
-  /* Named scale (semantic aliases) */
+  /* Named scale (semantic aliases) - demo8 adjusted */
   --space-xs: 0.5rem;   /* 8px */
   --space-sm: 1rem;     /* 16px */
   --space-md: 2rem;     /* 32px */
   --space-lg: 4rem;     /* 64px */
-  --space-xl: 8rem;     /* 128px */
-  --space-2xl: 12rem;   /* 192px */
+  --space-xl: 6rem;     /* 96px - reduced from 128px */
+  --space-2xl: 10rem;   /* 160px - reduced from 192px */
 
   /* ═══════════════════════════════════════════════════════════════
      TYPOGRAPHY VARIABLES (Font Families)
      These are duplicated in tailwind.css @theme for utility classes
   ═══════════════════════════════════════════════════════════════ */
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Cinzel', Georgia, serif;
+  --font-body: 'Josefin Sans', -apple-system, sans-serif;
+
+  /* ═══════════════════════════════════════════════════════════════
+     RGB COLOR VALUES (for rgba() usage)
+     Used in glass effects and shadow calculations
+  ═══════════════════════════════════════════════════════════════ */
+  --primary-rgb: 183, 110, 121;
+  --primary-light-rgb: 212, 165, 165;
+  --secondary-rgb: 201, 168, 124;
+
+  /* ═══════════════════════════════════════════════════════════════
+     GLASS EFFECT VARIABLES
+     For custom glass implementations beyond utility classes
+  ═══════════════════════════════════════════════════════════════ */
+  --glass-white: rgba(255, 255, 255, 0.25);
+  --glass-white-strong: rgba(255, 255, 255, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --glass-border-strong: rgba(255, 255, 255, 0.5);
+  --glass-shadow: rgba(var(--primary-rgb), 0.1);
 
   /* ═══════════════════════════════════════════════════════════════
      TRANSITION & ANIMATION TIMING
      Use for custom animations not covered by Tailwind utilities
   ═══════════════════════════════════════════════════════════════ */
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 
   --duration-fast: 0.2s;
   --duration-normal: 0.4s;
   --duration-slow: 0.8s;
 
   /* ═══════════════════════════════════════════════════════════════
-     GLOW & OVERLAY EFFECTS
+     BORDER RADIUS (non-Tailwind glass radii)
+  ═══════════════════════════════════════════════════════════════ */
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-full: 100px;
+
+  /* ═══════════════════════════════════════════════════════════════
+     GLOW EFFECTS (Rose Gold variants)
      RGBA values for layering and visual effects
   ═══════════════════════════════════════════════════════════════ */
-  --gold-glow: rgba(212, 175, 55, 0.3);
-  --terracotta-glow: rgba(199, 91, 57, 0.2);
+  --primary-glow: rgba(212, 165, 165, 0.3);
+  --primary-dark-glow: rgba(183, 110, 121, 0.2);
 }

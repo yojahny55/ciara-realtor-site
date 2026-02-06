@@ -9,6 +9,7 @@
  */
 
 import { DesignTokensTest } from '../components/design-tokens-test';
+import AnimatedBackground from '../components/common/animated-background.astro';
 import '../styles/global.css';
 ---
 
@@ -18,19 +19,20 @@ import '../styles/global.css';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Design Tokens Demo | Realtor Site</title>
-    <link rel="preload" as="font" href="/fonts/cormorant-garamond-400.woff2" type="font/woff2" crossorigin />
-    <link rel="preload" as="font" href="/fonts/dm-sans-400.woff2" type="font/woff2" crossorigin />
+    <link rel="preload" as="font" href="/fonts/cinzel-400.woff2" type="font/woff2" crossorigin />
+    <link rel="preload" as="font" href="/fonts/josefin-sans-400.woff2" type="font/woff2" crossorigin />
   </head>
   <body>
+    <AnimatedBackground />
     <DesignTokensTest client:visible />
 
     <footer class="bg-charcoal text-cream p-8 mt-12">
       <div class="container mx-auto text-center">
         <p class="font-body text-sm">
-          Design Tokens Demo - Story 1.2: Configure Tailwind & Design Tokens
+          Design Tokens Demo - Story 1.8: Migrate Design System to Demo8 (Glassmorphism)
         </p>
         <p class="font-body text-xs text-charcoal-soft mt-2">
-          ✓ AC #1: Colors | ✓ AC #2-4: Typography | ✓ AC #5: Spacing | ✓ AC #6: Shadows | ✓ AC #7: TypeScript Export | ✓ AC #8: Motion Preference | ✓ AC #9: Timing
+          ✓ AC #1: Rose Gold Colors | ✓ AC #2-4: Cinzel+Josefin Typography | ✓ AC #5: Tokens | ✓ AC #6: TypeScript | ✓ AC #7: Glass Utilities | ✓ AC #8: Animated Background | ✓ AC #9: Component Updates
         </p>
       </div>
     </footer>

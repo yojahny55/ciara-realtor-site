@@ -1,57 +1,64 @@
 /**
- * Design Tokens Unit Tests
+ * Design Tokens Unit Tests (demo8 - Glassmorphism)
  *
- * Tests TypeScript token exports (AC #7, #8)
+ * Tests TypeScript token exports (AC #6)
  */
 
 import { describe, it, expect } from 'vitest';
-import { colors, fonts, spacing, shadows, easing, duration } from '../src/styles/tokens';
+import { colors, fonts, spacing, shadows, borderRadius, easing, duration } from '../src/styles/tokens';
 
-describe('Design Tokens', () => {
+describe('Design Tokens (demo8)', () => {
   describe('Color Palette (AC #1)', () => {
-    it('should export cream colors', () => {
-      expect(colors.cream).toBe('#F5F5F0');
-      expect(colors.creamWarm).toBe('#FAF8F5');
+    it('should export primary rose gold colors', () => {
+      expect(colors.primary).toBe('#B76E79');
+      expect(colors.primaryLight).toBe('#D4A5A5');
+      expect(colors.primaryDark).toBe('#8B4D57');
     });
 
-    it('should export gold spectrum', () => {
-      expect(colors.gold).toBe('#D4AF37');
-      expect(colors.goldSoft).toBe('#E8D48A');
-      expect(colors.goldDark).toBe('#B8962E');
-      expect(colors.goldLight).toBe('#F4E4BA');
+    it('should export secondary gold colors', () => {
+      expect(colors.secondary).toBe('#C9A87C');
+      expect(colors.secondaryLight).toBe('#E0C9A6');
+    });
+
+    it('should export cream colors', () => {
+      expect(colors.cream).toBe('#F5EDE8');
+      expect(colors.creamMid).toBe('#E8DCD4');
+      expect(colors.creamSoft).toBe('#DDD0C6');
+      expect(colors.creamWarm).toBe('#F0E6E0');
+      expect(colors.creamWhite).toBe('#FFFAF8');
     });
 
     it('should export dark colors', () => {
       expect(colors.black).toBe('#1A1A1A');
-      expect(colors.charcoal).toBe('#333333');
+      expect(colors.charcoal).toBe('#2A2A2A');
       expect(colors.charcoalSoft).toBe('#4A4A4A');
     });
 
-    it('should export terracotta colors', () => {
-      expect(colors.terracotta).toBe('#C75B39');
-      expect(colors.terracottaLight).toBe('#FDEEE8');
+    it('should export white', () => {
+      expect(colors.white).toBe('#FFFFFF');
+    });
+
+    it('should export glass colors', () => {
+      expect(colors.glassWhite).toBe('rgba(255, 255, 255, 0.25)');
+      expect(colors.glassStrong).toBe('rgba(255, 255, 255, 0.4)');
+      expect(colors.glassBorder).toBe('rgba(255, 255, 255, 0.3)');
     });
 
     it('should export glow colors', () => {
-      expect(colors.goldGlow).toBe('rgba(212, 175, 55, 0.3)');
-      expect(colors.terracottaGlow).toBe('rgba(199, 91, 57, 0.2)');
-    });
-
-    it('should export white variants', () => {
-      expect(colors.offWhite).toBe('#FAFAFA');
-      expect(colors.white).toBe('#FFFFFF');
+      expect(colors.primaryGlow).toBe('rgba(212, 165, 165, 0.3)');
+      expect(colors.primaryDarkGlow).toBe('rgba(183, 110, 121, 0.2)');
     });
   });
 
   describe('Typography (AC #2)', () => {
-    it('should export Cormorant Garamond as display font', () => {
-      expect(fonts.display).toContain('Cormorant Garamond');
+    it('should export Cinzel as display font', () => {
+      expect(fonts.display).toContain('Cinzel');
       expect(fonts.display).toContain('Georgia');
       expect(fonts.display).toContain('serif');
     });
 
-    it('should export DM Sans as body font', () => {
-      expect(fonts.body).toContain('DM Sans');
+    it('should export Josefin Sans as body font', () => {
+      expect(fonts.body).toContain('Josefin Sans');
       expect(fonts.body).toContain('-apple-system');
       expect(fonts.body).toContain('sans-serif');
     });
@@ -78,38 +85,47 @@ describe('Design Tokens', () => {
       expect(spacing).toHaveProperty('16');
     });
 
-    it('should define named spacing tokens', () => {
+    it('should define named spacing tokens (demo8 adjusted)', () => {
       expect(spacing).toHaveProperty('xs');
       expect(spacing).toHaveProperty('sm');
       expect(spacing).toHaveProperty('md');
       expect(spacing).toHaveProperty('lg');
-      expect(spacing).toHaveProperty('xl');
-      expect(spacing).toHaveProperty('2xl');
+      expect(spacing.xl).toBe('6rem');   // 96px (reduced from demo6's 128px)
+      expect(spacing['2xl']).toBe('10rem'); // 160px (reduced from demo6's 192px)
     });
   });
 
-  describe('Shadow Tokens (AC #6)', () => {
-    it('should define shadow-sm', () => {
-      expect(shadows.sm).toBe('0 2px 8px rgba(0, 0, 0, 0.06)');
+  describe('Shadow Tokens with Rose Gold Tints (AC #1, #6)', () => {
+    it('should define shadow-sm with rose gold tint', () => {
+      expect(shadows.sm).toBe('0 2px 10px rgba(183, 110, 121, 0.08)');
     });
 
-    it('should define shadow-md', () => {
-      expect(shadows.md).toBe('0 8px 30px rgba(0, 0, 0, 0.08)');
+    it('should define shadow-md with rose gold tint', () => {
+      expect(shadows.md).toBe('0 8px 30px rgba(183, 110, 121, 0.12)');
     });
 
-    it('should define shadow-lg', () => {
-      expect(shadows.lg).toBe('0 20px 60px rgba(0, 0, 0, 0.12)');
+    it('should define shadow-lg with rose gold tint', () => {
+      expect(shadows.lg).toBe('0 20px 50px rgba(183, 110, 121, 0.15)');
     });
 
-    it('should define shadow-gold', () => {
-      expect(shadows.gold).toBe('0 8px 40px rgba(212, 175, 55, 0.25)');
+    it('should define shadow-glow', () => {
+      expect(shadows.glow).toBe('0 0 40px rgba(212, 165, 165, 0.3)');
     });
   });
 
-  describe('Transition Timing (AC #9)', () => {
+  describe('Border Radius Tokens (AC #3)', () => {
+    it('should define glass border radius values', () => {
+      expect(borderRadius.sm).toBe('12px');
+      expect(borderRadius.md).toBe('20px');
+      expect(borderRadius.lg).toBe('28px');
+      expect(borderRadius.full).toBe('100px');
+    });
+  });
+
+  describe('Transition Timing (demo8)', () => {
     it('should define easing functions', () => {
-      expect(easing.outExpo).toBe('cubic-bezier(0.16, 1, 0.3, 1)');
-      expect(easing.outBack).toBe('cubic-bezier(0.34, 1.56, 0.64, 1)');
+      expect(easing.smooth).toBe('cubic-bezier(0.4, 0, 0.2, 1)');
+      expect(easing.bounce).toBe('cubic-bezier(0.34, 1.56, 0.64, 1)');
     });
 
     it('should define duration tokens', () => {
@@ -119,7 +135,7 @@ describe('Design Tokens', () => {
     });
   });
 
-  describe('TypeScript Type Safety (AC #7)', () => {
+  describe('TypeScript Type Safety (AC #6)', () => {
     it('should export tokens as const for type inference', () => {
       // This test verifies that tokens are readonly
       // TypeScript compiler will catch any mutation attempts
@@ -130,10 +146,12 @@ describe('Design Tokens', () => {
     it('should have proper type exports', () => {
       // These type checks happen at compile time
       // If types are missing, TypeScript build will fail
-      const colorKey: keyof typeof colors = 'gold';
+      const colorKey: keyof typeof colors = 'primary';
       const fontKey: keyof typeof fonts = 'display';
-      expect(colorKey).toBe('gold');
+      const radiusKey: keyof typeof borderRadius = 'md';
+      expect(colorKey).toBe('primary');
       expect(fontKey).toBe('display');
+      expect(radiusKey).toBe('md');
     });
   });
 });
