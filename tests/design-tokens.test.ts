@@ -90,8 +90,8 @@ describe('Design Tokens (demo8)', () => {
       expect(spacing).toHaveProperty('sm');
       expect(spacing).toHaveProperty('md');
       expect(spacing).toHaveProperty('lg');
-      expect(spacing.xl).toBe('6rem');   // 96px (reduced from demo6's 128px)
-      expect(spacing['2xl']).toBe('10rem'); // 160px (reduced from demo6's 192px)
+      expect(spacing.xl).toBe('6rem');   // 96px (reduced from demo8's 128px)
+      expect(spacing['2xl']).toBe('10rem'); // 160px (reduced from demo8's 192px)
     });
   });
 

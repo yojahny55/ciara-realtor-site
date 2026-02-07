@@ -127,25 +127,25 @@ describe('MobileNav Island', () => {
     expect(phoneLink.closest('a')).toHaveAttribute('href', 'tel:+15558378');
   });
 
-  it('should render Contact Maria CTA in drawer', () => {
+  it('should render Get Started CTA in drawer', () => {
     render(<MobileNav {...defaultProps} />);
 
     const hamburgerButton = screen.getByLabelText(/open menu/i);
     fireEvent.click(hamburgerButton);
 
-    const ctaButton = screen.getByText(/Contact Maria/i);
+    const ctaButton = screen.getByText(/Get Started/i);
     expect(ctaButton).toBeInTheDocument();
     expect(ctaButton.closest('a')).toHaveAttribute('href', '/en/contact/');
   });
 
-  it('should render Contact Maria CTA in Spanish', () => {
+  it('should render Comenzar CTA in Spanish', () => {
     const spanishProps = { ...defaultProps, lang: 'es' as Lang };
     render(<MobileNav {...spanishProps} />);
 
     const hamburgerButton = screen.getByLabelText(/abrir menu/i);
     fireEvent.click(hamburgerButton);
 
-    const ctaButton = screen.getByText(/Contactar a Maria/i);
+    const ctaButton = screen.getByText(/Comenzar/i);
     expect(ctaButton).toBeInTheDocument();
     expect(ctaButton.closest('a')).toHaveAttribute('href', '/es/contacto/');
   });
@@ -220,8 +220,9 @@ describe('MobileNav Island', () => {
     fireEvent.click(hamburgerButton);
 
     const firstNavItem = screen.getByText('Home');
-    expect(firstNavItem.classList.contains('nav-item')).toBe(true);
-    // The CSS class .nav-item has min-height: 48px
+    // Text is in a span.nav-label inside an a.nav-item
+    expect(firstNavItem.closest('a')?.classList.contains('nav-item')).toBe(true);
+    // The CSS class .nav-item has min-height: 52px
   });
 
   it('should have minimum 44px touch target on close button', () => {

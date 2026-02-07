@@ -309,7 +309,7 @@ describe('Font Files (AC #2, #4)', () => {
     });
   });
 
-  it('should have removed old demo6 font files', () => {
+  it('should have removed old demo8 font files', () => {
     const oldFonts = [
       'cormorant-garamond-300.woff2',
       'cormorant-garamond-400.woff2',

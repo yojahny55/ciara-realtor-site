@@ -22,19 +22,19 @@ const t = useTranslations(lang);
 // Navigation links per Story 2.1 AC#1: Home, Buy, Sell, Rent, About, Contact
 const navLinks = [
   { href: `/${lang}/`, label: t('nav.home') },
-  { href: `/${lang === 'en' ? 'properties' : 'propiedades'}/`, label: lang === 'en' ? 'Buy' : 'Comprar' },
-  { href: `/${lang === 'en' ? 'sell' : 'vender'}/`, label: lang === 'en' ? 'Sell' : 'Vender' },
-  { href: `/${lang === 'en' ? 'rent' : 'alquilar'}/`, label: lang === 'en' ? 'Rent' : 'Alquilar' },
-  { href: `/${lang === 'en' ? 'about' : 'sobre-ciara'}/`, label: t('nav.about') },
-  { href: `/${lang === 'en' ? 'contact' : 'contacto'}/`, label: t('nav.contact') },
+  { href: `/${lang}/${lang === 'en' ? 'properties' : 'propiedades'}/`, label: t('nav.buy') },
+  { href: `/${lang}/${lang === 'en' ? 'sell' : 'vender'}/`, label: t('nav.sell') },
+  { href: `/${lang}/${lang === 'en' ? 'rent' : 'alquilar'}/`, label: t('nav.rent') },
+  { href: `/${lang}/${lang === 'en' ? 'about' : 'sobre-ciara'}/`, label: t('nav.about') },
+  { href: `/${lang}/${lang === 'en' ? 'contact' : 'contacto'}/`, label: t('nav.contact') },
 ];
 
 // Phone number
-const phoneNumber = '+1-555-CIARA-RE';
-const phoneHref = 'tel:+15557425273';
+const phoneNumber = '+1-555-5434';
+const phoneHref = 'tel:+15555434';
 
 // Get Started CTA
-const ctaUrl = `/${lang === 'en' ? 'contact' : 'contacto'}/`;
+const ctaUrl = `/${lang}/${lang === 'en' ? 'contact' : 'contacto'}/`;
 const ctaLabel = lang === 'en' ? 'Get Started' : 'Comenzar';
 
 // Get current path for active link detection
@@ -42,7 +42,7 @@ const currentPath = Astro.url.pathname;
 ---
 
 <header role="banner" class="site-header">
-  <nav role="navigation" aria-label="Main navigation" class="header-nav">
+  <nav aria-label="Main navigation" class="header-nav">
     <!-- Logo with Icon and Subtitle -->
     <a href={`/${lang}/`} class="logo-container" aria-label={lang === 'en' ? 'Home - Ciara Ruiz Real Estate' : 'Inicio - Ciara Ruiz Bienes Raíces'}>
       <div class="logo-icon">
@@ -96,8 +96,11 @@ const currentPath = Astro.url.pathname;
       </a>
     </div>
 
-    <!-- Mobile: Hamburger -->
+    <!-- Mobile: Language Toggle + Hamburger -->
     <div class="mobile-actions">
+      <div class="lang-toggle-wrapper">
+        <LanguageToggle currentLang={lang} currentPath={currentPath} />
+      </div>
       <MobileNav lang={lang} navLinks={navLinks} phoneNumber={phoneNumber} phoneHref={phoneHref} client:media="(max-width: 1023px)" />
     </div>
   </nav>
