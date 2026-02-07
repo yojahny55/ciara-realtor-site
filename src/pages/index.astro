@@ -2,11 +2,15 @@
 /**
  * Root Route - Defense-in-Depth Fallback
  *
+ * Must be server-rendered (not prerendered) so that:
+ * 1. Middleware can handle language detection at request time
+ * 2. Astro.redirect() issues a proper 302 (not a static meta-refresh page)
+ * 3. Accept-Language header is available for first-visit detection
+ *
  * Primary language detection is handled by middleware (src/middleware.ts).
- * This page serves as a fallback if middleware is disabled or fails:
- * it reads the preferredLanguage cookie and Accept-Language header to
- * redirect to the correct language version instead of always defaulting to /en/.
+ * This page serves as a fallback if middleware is disabled or fails.
  */
+export const prerender = false;
 
 const cookieLang = Astro.cookies.get('preferredLanguage')?.value;
 
