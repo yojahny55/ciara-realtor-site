@@ -54,6 +54,12 @@ export interface Translations {
   'common.viewAll': string;
   'common.submit': string;
 
+  // Welcome Popup
+  'welcome.title': string;
+  'welcome.message': string;
+  'welcome.agentIntro': string;
+  'welcome.continue': string;
+
   // Errors
   'error.notFound': string;
   'error.generic': string;
@@ -109,6 +115,12 @@ export const translations: Record<'en' | 'es', Translations> = {
     'common.viewAll': 'View All',
     'common.submit': 'Submit',
 
+    // Welcome Popup
+    'welcome.title': 'Welcome!',
+    'welcome.message': 'This site was created for you.',
+    'welcome.agentIntro': 'Ciara Ruiz, helping Tampa families to find their dream home.',
+    'welcome.continue': 'Continue',
+
     // Errors
     'error.notFound': 'Page Not Found',
     'error.generic': 'Something went wrong',
@@ -161,6 +173,12 @@ export const translations: Record<'en' | 'es', Translations> = {
     'common.learnMore': 'Saber Más',
     'common.viewAll': 'Ver Todo',
     'common.submit': 'Enviar',
+
+    // Welcome Popup
+    'welcome.title': '¡Bienvenido!',
+    'welcome.message': 'Este sitio fue creado para ti.',
+    'welcome.agentIntro': 'Ciara Ruiz, ayudando a familias de Tampa a encontrar el hogar de sus sueños.',
+    'welcome.continue': 'Continuar',
 
     // Errors
     'error.notFound': 'Página No Encontrada',

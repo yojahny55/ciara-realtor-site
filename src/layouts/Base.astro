@@ -15,6 +15,7 @@ const {
 
 import { getAlternateUrl, getEnglishUrl } from '@/i18n';
 import type { Lang } from '@/i18n';
+import SpanishWelcomePopup from '@/components/islands/spanish-welcome-popup';
 
 // Get current language from Astro i18n context
 const lang = (Astro.currentLocale ?? 'en') as Lang;
@@ -98,10 +99,51 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
     <!-- Skip to Main Content Link (Accessibility) -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
+    <!-- Spanish Welcome Popup (Story 2.4) -->
+    <!-- Only renders for first-time auto-detected Spanish visitors -->
+    <!-- Uses client:load because popup appears on timer, not scroll visibility -->
+    <SpanishWelcomePopup lang={lang} client:load />
+
     <!-- Page Content Slot -->
     <!-- Note: Pages using Base.astro directly MUST include <main id="main-content"> -->
     <!-- Page.astro handles this automatically -->
     <slot />
+
+    <!-- Popup Auto-Detection Flag (Story 2.4) -->
+    <!-- Captures whether localStorage.preferredLanguage existed BEFORE sync script runs.
+         If it exists pre-sync, user manually toggled language (toggle sets localStorage
+         before navigation). If not, they were auto-detected by middleware (cookie only). -->
+    <script>
+      window.__hadPreferredLang = !!localStorage.getItem('preferredLanguage');
+    </script>
+
+    <!-- Language Preference Sync Script -->
+    <!-- Syncs cookie preference to localStorage; falls back to URL language for first visit -->
+    <script define:vars={{ lang }}>
+      /**
+       * Language Preference Sync
+       *
+       * Keeps localStorage in sync with the server-side cookie preference.
+       * Cookie is the source of truth (set by middleware or toggle click).
+       *
+       * Logic:
+       * 1. If cookie exists → sync localStorage from cookie value
+       * 2. If no cookie (first visit) → sync from current URL language
+       *
+       * This avoids overwriting an explicit user preference when they
+       * navigate directly to a URL in a different language (e.g., bookmark).
+       */
+      function getCookie(name) {
+        const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+        return match ? match[1] : null;
+      }
+      const cookieLang = getCookie('preferredLanguage');
+      if (cookieLang === 'en' || cookieLang === 'es') {
+        localStorage.setItem('preferredLanguage', cookieLang);
+      } else if (lang === 'en' || lang === 'es') {
+        localStorage.setItem('preferredLanguage', lang);
+      }
+    </script>
   </body>
 </html>
 

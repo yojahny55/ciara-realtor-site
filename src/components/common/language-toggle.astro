@@ -39,10 +39,42 @@ const ariaLabel = currentLang === 'en'
     class="alternate-lang"
     aria-label={ariaLabel}
     hreflang={alternateLang}
+    data-target-lang={alternateLang}
   >
     {alternateLangLabel}
   </a>
 </div>
+
+<script>
+  /**
+   * Language Toggle Persistence
+   *
+   * When user manually switches language, persist their choice in:
+   * - localStorage (for client-side JS access)
+   * - Cookie (for server-side middleware access)
+   *
+   * This ensures the preference is respected on subsequent visits.
+   */
+  // Note: No e.preventDefault() needed — localStorage.setItem and document.cookie
+  // writes are synchronous and complete before the browser's default navigation fires.
+  document.querySelectorAll('.language-toggle .alternate-lang').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      const target = e.currentTarget as HTMLAnchorElement;
+      const targetLang = target.getAttribute('data-target-lang');
+
+      if (targetLang && (targetLang === 'en' || targetLang === 'es')) {
+        // Persist in localStorage for client-side access
+        localStorage.setItem('preferredLanguage', targetLang);
+
+        // Persist in cookie for server-side middleware access
+        // Path=/ ensures cookie is available on all routes
+        // Max-age=31536000 = 1 year in seconds
+        // SameSite=Lax for security while allowing top-level navigation
+        document.cookie = `preferredLanguage=${targetLang};path=/;max-age=31536000;SameSite=Lax`;
+      }
+    });
+  });
+</script>
 
 <style>
   .language-toggle {

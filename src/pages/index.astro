@@ -1,11 +1,35 @@
 ---
 /**
- * Root Redirect
+ * Root Route - Defense-in-Depth Fallback
  *
- * Redirects visitors from root (/) to the English homepage (/en/)
- * This ensures all pages have explicit language prefixes.
+ * Primary language detection is handled by middleware (src/middleware.ts).
+ * This page serves as a fallback if middleware is disabled or fails:
+ * it reads the preferredLanguage cookie and Accept-Language header to
+ * redirect to the correct language version instead of always defaulting to /en/.
  */
 
-// Redirect to English homepage
-return Astro.redirect('/en/', 302);
+const cookieLang = Astro.cookies.get('preferredLanguage')?.value;
+
+let targetLang = 'en';
+
+if (cookieLang === 'en' || cookieLang === 'es') {
+  targetLang = cookieLang;
+} else {
+  const acceptLang = Astro.request.headers.get('Accept-Language') || '';
+  // Simple check: if any Spanish tag has the highest effective priority
+  const entries = acceptLang.split(',').map((e) => {
+    const parts = e.trim().split(';');
+    const tag = parts[0].trim().toLowerCase();
+    const qMatch = parts[1]?.match(/q=([\d.]+)/);
+    const q = qMatch ? parseFloat(qMatch[1]) : 1.0;
+    return { tag, q };
+  });
+  entries.sort((a, b) => b.q - a.q);
+  for (const { tag } of entries) {
+    if (tag === 'es' || tag.startsWith('es-')) { targetLang = 'es'; break; }
+    if (tag === 'en' || tag.startsWith('en-')) { break; }
+  }
+}
+
+return Astro.redirect(`/${targetLang}/`, 302);
 ---
