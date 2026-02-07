@@ -1,0 +1,802 @@
+---
+/**
+ * Footer Component - Demo8 Design with Mobile Accordion
+ *
+ * Desktop: 4-column grid with glassmorphism
+ * Mobile: Collapsible accordion sections with smooth animations
+ * Bilingual support with accessibility features
+ */
+
+import { useTranslations } from '@/i18n';
+import type { Lang } from '@/i18n';
+import FooterAccordion from '@/components/islands/footer-accordion';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+// Current year for copyright
+const currentYear = new Date().getFullYear();
+
+// Contact information
+const phoneNumber = '(813) 555-1234';
+const phoneHref = 'tel:+18135551234';
+const email = 'ciara@tamparealestate.com';
+const emailHref = 'mailto:ciara@tamparealestate.com';
+const address = {
+  line1: '123 Harbor Drive, Suite 100',
+  line2: 'Tampa, FL 33602',
+};
+
+// Quick Links navigation
+const quickLinks = [
+  { href: `/${lang}/${lang === 'en' ? 'properties' : 'propiedades'}/`, label: t('nav.properties') },
+  { href: `/${lang}/${lang === 'en' ? 'neighborhoods' : 'vecindarios'}/`, label: t('footer.neighborhoods') },
+  { href: `/${lang}/${lang === 'en' ? 'about' : 'sobre-ciara'}/`, label: t('nav.about') },
+  { href: `/${lang}/${lang === 'en' ? 'reviews' : 'resenas'}/`, label: t('footer.clientReviews') },
+];
+
+// Services links
+const servicesLinks = [
+  { href: `/${lang}/${lang === 'en' ? 'buy' : 'comprar'}/`, label: t('footer.buyHome') },
+  { href: `/${lang}/${lang === 'en' ? 'sell' : 'vender'}/`, label: t('footer.sellHome') },
+  { href: `/${lang}/${lang === 'en' ? 'valuation' : 'valuacion'}/`, label: t('footer.homeValuation') },
+  { href: `/${lang}/${lang === 'en' ? 'relocation' : 'reubicacion'}/`, label: t('footer.relocation') },
+];
+
+// Contact links for accordion
+const contactLinks = [
+  { href: phoneHref, label: phoneNumber },
+  { href: emailHref, label: email },
+  { href: '#', label: `${address.line1}<br/>${address.line2}`, isAddress: true },
+];
+
+// Legal links
+const legalLinks = [
+  { href: `/${lang}/${lang === 'en' ? 'privacy' : 'privacidad'}/`, label: t('footer.privacy') },
+  { href: `/${lang}/${lang === 'en' ? 'terms' : 'terminos'}/`, label: t('footer.terms') },
+];
+
+// Accordion sections for mobile
+const accordionSections = [
+  { id: 'quick-links', title: t('footer.quickLinks'), items: quickLinks },
+  { id: 'services', title: t('footer.services'), items: servicesLinks },
+  { id: 'contact', title: t('footer.contact'), items: contactLinks },
+];
+
+// Replace {year} in copyright text
+const copyrightText = t('footer.copyright').replace('{year}', currentYear.toString());
+---
+
+<footer role="contentinfo" class="site-footer">
+  <div class="footer-container">
+    <!-- Desktop Grid Navigation -->
+    <nav aria-label="Footer navigation" class="footer-grid footer-desktop">
+      <!-- Brand Column -->
+      <div class="footer-brand">
+        <a href={`/${lang}/`} class="logo-container" aria-label={lang === 'en' ? 'Home - Avenue Homes - Ciara Ruiz Real Estate' : 'Inicio - Avenue Homes - Ciara Ruiz Bienes Raíces'}>
+          <img
+            src="/images/company-logo.webp"
+            alt="Avenue Homes"
+            class="logo-company"
+            width="140"
+            height="70"
+          />
+          <div class="logo-divider"></div>
+          <img
+            src="/images/logo-signature.webp"
+            alt="Ciara Ruiz Realtor"
+            class="logo-signature"
+            width="350"
+            height="70"
+          />
+        </a>
+       
+        <p class="footer-desc">{t('footer.brand.description')}</p>
+      </div>
+
+      <!-- Quick Links Column -->
+      <div class="footer-col">
+        <h4>{t('footer.quickLinks')}</h4>
+        <ul class="footer-links">
+          {quickLinks.map(link => (
+            <li><a href={link.href}>{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Services Column -->
+      <div class="footer-col">
+        <h4>{t('footer.services')}</h4>
+        <ul class="footer-links">
+          {servicesLinks.map(link => (
+            <li><a href={link.href}>{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Contact Column -->
+      <div class="footer-col">
+        <h4>{t('footer.contact')}</h4>
+        <ul class="footer-links">
+          <li>
+            <a href={phoneHref} aria-label={lang === 'en' ? 'Call Ciara Ruiz' : 'Llamar a Ciara Ruiz'}>
+              {phoneNumber}
+            </a>
+          </li>
+          <li>
+            <a href={emailHref} aria-label={lang === 'en' ? 'Email Ciara Ruiz' : 'Enviar correo a Ciara Ruiz'}>
+              {email}
+            </a>
+          </li>
+          <li class="address">
+            {address.line1}<br />
+            {address.line2}
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Mobile Accordion Navigation -->
+    <div class="footer-mobile">
+      <!-- Brand Section (Always Visible) -->
+      <div class="footer-brand-mobile">
+        <a href={`/${lang}/`} class="logo-container" aria-label={lang === 'en' ? 'Home - Avenue Homes - Ciara Ruiz Real Estate' : 'Inicio - Avenue Homes - Ciara Ruiz Bienes Raíces'}>
+          <img
+            src="/images/company-logo.webp"
+            alt="Avenue Homes"
+            class="logo-company"
+            width="110"
+            height="55"
+          />
+          <div class="logo-divider"></div>
+          <img
+            src="/images/logo-signature.webp"
+            alt="Ciara Ruiz Realtor"
+            class="logo-signature"
+            width="275"
+            height="55"
+          />
+        </a>
+        <p class="footer-tagline">TAMPA BAY REAL ESTATE</p>
+        <p class="footer-desc">{t('footer.brand.description')}</p>
+      </div>
+
+      <!-- Accordion Sections -->
+      <FooterAccordion sections={accordionSections} client:media="(max-width: 600px)" />
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">
+        <p class="footer-copyright">{copyrightText}</p>
+        <p class="footer-equal-housing">{t('footer.equalHousing')}</p>
+      </div>
+
+      <div class="footer-bottom-right">
+        <div class="footer-legal">
+          {legalLinks.map(link => (
+            <a href={link.href}>{link.label}</a>
+          ))}
+        </div>
+        <div class="footer-social">
+          <a href="https://facebook.com/ciararuiz" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+          </a>
+          <a href="https://instagram.com/ciararuiz" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+            </svg>
+          </a>
+          <a href="https://linkedin.com/in/ciararuiz" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect width="4" height="12" x="2" y="9"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+          <a href="https://youtube.com/@ciararuiz" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/>
+              <path d="m10 15 5-3-5-3z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════
+     BASE FOOTER STYLES
+  ═══════════════════════════════════════════════════════════════ */
+
+  .site-footer {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(50px) saturate(180%);
+    -webkit-backdrop-filter: blur(50px) saturate(180%);
+    color: var(--color-charcoal);
+    padding: var(--space-xl) 0 var(--space-md);
+    position: relative;
+    margin-top: var(--space-2xl);
+  }
+
+  .site-footer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 100%);
+    pointer-events: none;
+  }
+
+  .footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+    position: relative;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     DESKTOP GRID LAYOUT (default)
+  ═══════════════════════════════════════════════════════════════ */
+
+  .footer-desktop {
+    display: grid;
+    grid-template-columns: 1.5fr repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-lg);
+  }
+
+  .footer-mobile {
+    display: none;
+  }
+
+  /* Brand Column */
+  .footer-brand .logo-container,
+  .footer-brand-mobile .logo-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.5rem;
+    text-decoration: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    margin-bottom: var(--space-xs);
+  }
+
+  .footer-brand .logo-container:hover,
+  .footer-brand-mobile .logo-container:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+  }
+
+  .footer-brand .logo-container:focus,
+  .footer-brand-mobile .logo-container:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 4px;
+    border-radius: 8px;
+  }
+
+  .logo-signature {
+    height: 70px;
+    width: auto;
+    display: block;
+    transition: filter 0.2s ease;
+  }
+
+  .logo-divider {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(180deg,
+      transparent 0%,
+      rgba(74, 63, 58, 0.2) 20%,
+      rgba(74, 63, 58, 0.3) 50%,
+      rgba(74, 63, 58, 0.2) 80%,
+      transparent 100%);
+    flex-shrink: 0;
+  }
+
+  .logo-company {
+    height: 70px;
+    width: auto;
+    display: block;
+    transition: filter 0.2s ease;
+  }
+
+  .footer-brand .logo-container:hover .logo-signature,
+  .footer-brand .logo-container:hover .logo-company,
+  .footer-brand-mobile .logo-container:hover .logo-signature,
+  .footer-brand-mobile .logo-container:hover .logo-company {
+    filter: brightness(0.95);
+  }
+
+  .footer-tagline {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--color-charcoal-soft);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: var(--space-xs);
+  }
+
+  .footer-desc {
+    color: #4a3f3a;
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-top: var(--space-xs);
+  }
+
+  /* Footer Columns */
+  .footer-col h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-primary-dark);
+    margin-bottom: var(--space-sm);
+  }
+
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-links li {
+    margin-bottom: 0.85rem;
+  }
+
+  .footer-links a {
+    font-size: 1rem;
+    color: #4a3f3a;
+    text-decoration: none;
+    transition: color var(--duration-fast) ease;
+  }
+
+  .footer-links a:hover {
+    color: var(--color-primary);
+  }
+
+  .footer-links a:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  .footer-links .address {
+    color: #4a3f3a;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     MOBILE ACCORDION STYLES
+  ═══════════════════════════════════════════════════════════════ */
+
+  .footer-brand-mobile {
+    margin-bottom: var(--space-md);
+  }
+
+  :global(.footer-accordion) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: var(--space-md);
+  }
+
+  :global(.accordion-section) {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+  }
+
+  :global(.accordion-section.is-open) {
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 24px rgba(183, 110, 121, 0.12),
+                0 0 0 1px rgba(183, 110, 121, 0.1);
+    transform: translateY(-2px);
+  }
+
+  :global(.accordion-header) {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    text-align: left;
+    min-height: 56px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :global(.accordion-title) {
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-primary-dark);
+    transition: color 0.2s ease;
+  }
+
+  :global(.accordion-section.is-open .accordion-title) {
+    color: var(--color-primary);
+  }
+
+  :global(.accordion-chevron) {
+    color: var(--color-primary);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    flex-shrink: 0;
+  }
+
+  :global(.accordion-section.is-open .accordion-chevron) {
+    transform: rotate(180deg);
+  }
+
+  :global(.accordion-content) {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  :global(.accordion-section.is-open .accordion-content) {
+    max-height: 400px;
+  }
+
+  :global(.accordion-list) {
+    list-style: none;
+    padding: 0 1.25rem 1.25rem;
+    margin: 0;
+  }
+
+  :global(.accordion-item) {
+    opacity: 0;
+    transform: translateY(-8px);
+    animation: none;
+  }
+
+  :global(.accordion-section.is-open .accordion-item) {
+    animation: accordionItemReveal 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  @keyframes accordionItemReveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  :global(.accordion-link) {
+    display: block;
+    padding: 0.75rem 0;
+    font-size: 1rem;
+    color: #4a3f3a;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-radius: 6px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  :global(.accordion-link:active) {
+    background: rgba(183, 110, 121, 0.08);
+    color: var(--color-primary);
+    transform: scale(0.98);
+  }
+
+  :global(.accordion-address) {
+    display: block;
+    padding: 0.75rem 0;
+    font-size: 1rem;
+    color: #4a3f3a;
+    line-height: 1.6;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     BOTTOM BAR
+  ═══════════════════════════════════════════════════════════════ */
+
+  .footer-bottom {
+    padding-top: var(--space-md);
+    border-top: 1px solid rgba(74, 63, 58, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  .footer-bottom-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer-copyright {
+    font-size: 0.95rem;
+    color: #5a4a42;
+    margin: 0;
+  }
+
+  .footer-equal-housing {
+    font-size: 0.875rem;
+    color: #5a4a42;
+    margin: 0;
+  }
+
+  .footer-bottom-right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .footer-legal {
+    display: flex;
+    gap: var(--space-sm);
+    font-size: 0.875rem;
+  }
+
+  .footer-legal a {
+    color: #5a4a42;
+    text-decoration: none;
+    transition: color var(--duration-fast) ease;
+  }
+
+  .footer-legal a:hover {
+    color: var(--color-primary);
+  }
+
+  .footer-legal a:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Social Media Icons */
+  .footer-social {
+    display: flex;
+    gap: var(--space-sm);
+  }
+
+  .footer-social a {
+    width: 42px;
+    height: 42px;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(74, 63, 58, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4a3f3a;
+    transition: all var(--duration-fast) ease;
+  }
+
+  .footer-social a:hover {
+    background: rgba(183, 110, 121, 0.15);
+    border-color: rgba(183, 110, 121, 0.3);
+    color: var(--color-primary);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(183, 110, 121, 0.15), 0 0 20px rgba(212, 165, 165, 0.2);
+  }
+
+  .footer-social a:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  .footer-social svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     RESPONSIVE BREAKPOINTS
+  ═══════════════════════════════════════════════════════════════ */
+
+  /* Tablet: 2-column layout */
+  @media (max-width: 900px) and (min-width: 601px) {
+    .footer-desktop {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-brand {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* Mobile: Switch to accordion */
+  @media (max-width: 600px) {
+    .footer-desktop {
+      display: none;
+    }
+
+    .footer-mobile {
+      display: block;
+    }
+
+    .logo-signature {
+      height: 55px;
+    }
+
+    .logo-company {
+      height: 55px;
+    }
+
+    .logo-divider {
+      height: 50px;
+    }
+
+    .footer-brand .logo-container,
+    .footer-brand-mobile .logo-container {
+      gap: 1rem;
+    }
+
+    .footer-tagline {
+      font-size: 0.65rem;
+    }
+
+    /* Mobile Footer Bottom - Luxury Redesign */
+    .footer-bottom {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: var(--space-md);
+      padding: var(--space-lg) var(--space-sm) var(--space-md);
+      margin-top: var(--space-md);
+      background: rgba(255, 255, 255, 0.35);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .footer-bottom-left {
+      align-items: center;
+      order: 2;
+      gap: 0.75rem;
+    }
+
+    .footer-copyright {
+      font-size: 0.8rem;
+      line-height: 1.5;
+      max-width: 280px;
+    }
+
+    .footer-equal-housing {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-primary-dark);
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .footer-equal-housing::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 2px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        var(--color-primary) 50%,
+        transparent 100%);
+    }
+
+    .footer-bottom-right {
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      order: 1;
+      gap: var(--space-md);
+    }
+
+    /* Social Icons - Prominent at top */
+    .footer-social {
+      justify-content: center;
+      width: 100%;
+      gap: var(--space-sm);
+      padding: 0;
+      order: 1;
+    }
+
+    .footer-social a {
+      min-width: 48px;
+      min-height: 48px;
+      width: 48px;
+      height: 48px;
+      background: rgba(255, 255, 255, 0.65);
+      box-shadow: 0 4px 12px rgba(183, 110, 121, 0.1);
+    }
+
+    .footer-social a:active {
+      transform: scale(0.92);
+    }
+
+    .footer-social svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Legal Links - Compact inline */
+    .footer-legal {
+      flex-direction: row;
+      justify-content: center;
+      gap: var(--space-sm);
+      font-size: 0.8rem;
+      order: 2;
+      flex-wrap: wrap;
+    }
+
+    .footer-legal a {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.5rem 0.75rem;
+      position: relative;
+      color: #5a4a42;
+      font-weight: 500;
+    }
+
+    .footer-legal a::after {
+      content: '•';
+      position: absolute;
+      right: -8px;
+      color: rgba(74, 63, 58, 0.3);
+      font-weight: 400;
+    }
+
+    .footer-legal a:last-child::after {
+      display: none;
+    }
+
+    .footer-legal a:active {
+      color: var(--color-primary);
+      background: rgba(183, 110, 121, 0.08);
+      border-radius: 8px;
+    }
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     ACCESSIBILITY
+  ═══════════════════════════════════════════════════════════════ */
+
+  @media (prefers-reduced-motion: reduce) {
+    .footer-social a:hover,
+    :global(.accordion-section.is-open) {
+      transform: none;
+    }
+
+    :global(.accordion-chevron),
+    :global(.accordion-content),
+    :global(.accordion-item) {
+      transition: none;
+      animation: none;
+    }
+
+    .footer-brand .logo-container,
+    .footer-brand-mobile .logo-container,
+    .footer-links a,
+    .footer-legal a {
+      transition: none;
+    }
+  }
+</style>

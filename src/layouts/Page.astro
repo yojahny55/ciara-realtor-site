@@ -1,6 +1,7 @@
 ---
 import Base from './Base.astro';
 import Header from '@/components/common/header.astro';
+import Footer from '@/components/common/footer.astro';
 import type { PageLayoutProps } from './types';
 import { maxWidthClasses } from './types';
 import type { Lang } from '@/i18n';
@@ -43,6 +44,9 @@ const mainClasses = ['mx-auto', containerClass, paddingClass].filter(Boolean).jo
     <slot />
   </main>
 
-  <!-- Footer Slot -->
+  <!-- Footer -->
+  <Footer lang={currentLang} />
+
+  <!-- Footer Slot (for page-specific footer content) -->
   <slot name="footer" />
 </Base>

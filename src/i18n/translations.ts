@@ -24,6 +24,23 @@ export interface Translations {
   'header.menuClose': string;
   'header.skipToContent': string;
 
+  // Footer
+  'footer.brand.description': string;
+  'footer.quickLinks': string;
+  'footer.services': string;
+  'footer.contact': string;
+  'footer.buyHome': string;
+  'footer.sellHome': string;
+  'footer.homeValuation': string;
+  'footer.relocation': string;
+  'footer.clientReviews': string;
+  'footer.neighborhoods': string;
+  'footer.copyright': string;
+  'footer.privacy': string;
+  'footer.terms': string;
+  'footer.equalHousing': string;
+  'footer.followUs': string;
+
   // Call-to-Actions
   'cta.search': string;
   'cta.value': string;
@@ -61,6 +78,23 @@ export const translations: Record<'en' | 'es', Translations> = {
     'header.menuClose': 'Close menu',
     'header.skipToContent': 'Skip to content',
 
+    // Footer
+    'footer.brand.description': 'Your trusted partner in finding the perfect home in Tampa Bay\'s most desirable neighborhoods.',
+    'footer.quickLinks': 'Quick Links',
+    'footer.services': 'Services',
+    'footer.contact': 'Contact',
+    'footer.buyHome': 'Buy a Home',
+    'footer.sellHome': 'Sell Your Home',
+    'footer.homeValuation': 'Home Valuation',
+    'footer.relocation': 'Relocation',
+    'footer.clientReviews': 'Client Reviews',
+    'footer.neighborhoods': 'Neighborhoods',
+    'footer.copyright': '© {year} Ciara Ruiz Real Estate. All rights reserved.',
+    'footer.privacy': 'Privacy Policy',
+    'footer.terms': 'Terms of Service',
+    'footer.equalHousing': 'Equal Housing Opportunity',
+    'footer.followUs': 'Follow Us',
+
     // Call-to-Actions
     'cta.search': 'Search Properties',
     'cta.value': 'Get Home Value',
@@ -95,6 +129,23 @@ export const translations: Record<'en' | 'es', Translations> = {
     'header.menuOpen': 'Abrir menu',
     'header.menuClose': 'Cerrar menu',
     'header.skipToContent': 'Saltar al contenido',
+
+    // Footer
+    'footer.brand.description': 'Su socia de confianza para encontrar el hogar perfecto en los vecindarios más deseados de Tampa Bay.',
+    'footer.quickLinks': 'Enlaces Rápidos',
+    'footer.services': 'Servicios',
+    'footer.contact': 'Contacto',
+    'footer.buyHome': 'Comprar una Casa',
+    'footer.sellHome': 'Vender su Casa',
+    'footer.homeValuation': 'Valuación de Casa',
+    'footer.relocation': 'Reubicación',
+    'footer.clientReviews': 'Reseñas de Clientes',
+    'footer.neighborhoods': 'Vecindarios',
+    'footer.copyright': '© {year} Ciara Ruiz Real Estate. Todos los derechos reservados.',
+    'footer.privacy': 'Política de Privacidad',
+    'footer.terms': 'Términos de Servicio',
+    'footer.equalHousing': 'Igualdad de Oportunidades de Vivienda',
+    'footer.followUs': 'Síguenos',
 
     // Call-to-Actions
     'cta.search': 'Buscar Propiedades',

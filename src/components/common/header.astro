@@ -43,18 +43,23 @@ const currentPath = Astro.url.pathname;
 
 <header role="banner" class="site-header">
   <nav aria-label="Main navigation" class="header-nav">
-    <!-- Logo with Icon and Subtitle -->
-    <a href={`/${lang}/`} class="logo-container" aria-label={lang === 'en' ? 'Home - Ciara Ruiz Real Estate' : 'Inicio - Ciara Ruiz Bienes Raíces'}>
-      <div class="logo-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-          <polyline points="9 22 9 12 15 12 15 22" />
-        </svg>
-      </div>
-      <div class="logo-text">
-        <div class="logo-name">Ciara Ruiz</div>
-        <div class="logo-subtitle">TAMPA BAY REAL ESTATE</div>
-      </div>
+    <!-- Logo - Company + Signature -->
+    <a href={`/${lang}/`} class="logo-container" aria-label={lang === 'en' ? 'Home - Avenue Homes - Ciara Ruiz Real Estate' : 'Inicio - Avenue Homes - Ciara Ruiz Bienes Raíces'}>
+      <img
+        src="/images/company-logo.webp"
+        alt="Avenue Homes"
+        class="logo-company"
+        width="110"
+        height="55"
+      />
+      <div class="logo-divider"></div>
+      <img
+        src="/images/logo-signature.webp"
+        alt="Ciara Ruiz Realtor"
+        class="logo-signature"
+        width="275"
+        height="55"
+      />
     </a>
 
     <!-- Desktop Navigation -->
@@ -115,7 +120,7 @@ const currentPath = Astro.url.pathname;
     right: 1rem;         /* var(--space-sm) */
     z-index: 1000;
     border-radius: 28px; /* var(--radius-lg) */
-    padding: 1rem 2rem;  /* var(--space-sm) var(--space-md) */
+    padding: 0.75rem 2rem;  /* Reduced vertical padding for larger logo */
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     /* Demo8 glassmorphism effect */
@@ -138,17 +143,18 @@ const currentPath = Astro.url.pathname;
     /* No additional padding - padding is on parent .site-header */
   }
 
-  /* Logo with Icon and Subtitle */
+  /* Logo - Signature + Company */
   .logo-container {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 1.25rem;
     text-decoration: none;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.2s ease, transform 0.2s ease;
   }
 
   .logo-container:hover {
-    opacity: 0.8;
+    opacity: 0.85;
+    transform: translateY(-1px);
   }
 
   .logo-container:focus {
@@ -157,46 +163,35 @@ const currentPath = Astro.url.pathname;
     border-radius: 8px;
   }
 
-  .logo-icon {
-    width: 48px;
-    height: 48px;
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
-    border-radius: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
+  .logo-signature {
+    height: 55px;
+    width: auto;
+    display: block;
+    transition: filter 0.2s ease;
+  }
+
+  .logo-divider {
+    width: 1px;
+    height: 45px;
+    background: linear-gradient(180deg,
+      transparent 0%,
+      rgba(74, 63, 58, 0.2) 20%,
+      rgba(74, 63, 58, 0.3) 50%,
+      rgba(74, 63, 58, 0.2) 80%,
+      transparent 100%);
     flex-shrink: 0;
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
-  .logo-container:hover .logo-icon {
-    transform: scale(1.05);
+  .logo-company {
+    height: 55px;
+    width: auto;
+    display: block;
+    transition: filter 0.2s ease;
   }
 
-  .logo-text {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .logo-name {
-    font-family: var(--font-display);
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--color-black);
-    line-height: 1.2;
-    letter-spacing: 0.02em;
-  }
-
-  .logo-subtitle {
-    font-family: var(--font-body);
-    font-size: 0.65rem;
-    font-weight: 500;
-    color: var(--color-charcoal-soft);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    line-height: 1;
+  .logo-container:hover .logo-signature,
+  .logo-container:hover .logo-company {
+    filter: brightness(0.95);
   }
 
   /* Desktop Navigation */
@@ -332,17 +327,20 @@ const currentPath = Astro.url.pathname;
       border-radius: 1rem;
     }
 
-    .logo-icon {
-      width: 40px;
+    .logo-signature {
       height: 40px;
     }
 
-    .logo-name {
-      font-size: 1.125rem;
+    .logo-company {
+      height: 40px;
     }
 
-    .logo-subtitle {
-      font-size: 0.6rem;
+    .logo-divider {
+      height: 35px;
+    }
+
+    .logo-container {
+      gap: 0.75rem;
     }
   }
 </style>

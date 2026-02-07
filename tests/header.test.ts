@@ -121,8 +121,8 @@ describe('Header Component', () => {
   it('should use CSS custom properties for design tokens', () => {
     expect(content).toContain('var(--color-primary)');
     expect(content).toContain('var(--color-charcoal)');
-    expect(content).toContain('var(--font-display)');
     expect(content).toContain('var(--font-body)');
+    expect(content).toContain('logo-signature'); // Uses image logo now
   });
 
   it('should have hover states for nav links via scoped CSS', () => {
