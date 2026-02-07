@@ -21,11 +21,11 @@ describe('Footer component', () => {
     expect(footerSource).toContain('aria-label="Footer navigation"');
   });
 
-  it('should contain brand column with logo and description', () => {
+  it('should contain brand column with logo, tagline, and description', () => {
     expect(footerSource).toContain('footer-brand');
     expect(footerSource).toContain('logo-signature');
-    expect(footerSource).toContain('/images/logo-signature.webp');
-    expect(footerSource).toContain('footer-tagline');
+    expect(footerSource).toContain('/images/logo-signature.webp');   
+    expect(footerSource).toContain('footer.brand.tagline');
     expect(footerSource).toContain('footer.brand.description');
   });
 
@@ -96,5 +96,22 @@ describe('Footer component', () => {
     expect(footerSource).toContain('@media (max-width: 600px)');
     expect(footerSource).toContain('display: block'); // footer-mobile becomes visible
     expect(footerSource).toContain('FooterAccordion'); // Uses accordion component
+  });
+
+  it('should use routeMap for localized paths instead of hardcoded ternaries', () => {
+    expect(footerSource).toContain('routeMap');
+    expect(footerSource).toContain('getLocalizedPath');
+    // Should NOT have hardcoded ternary route translations
+    expect(footerSource).not.toContain("lang === 'en' ? 'properties' : 'propiedades'");
+  });
+
+  it('should use translated tagline instead of hardcoded text', () => {
+    expect(footerSource).not.toContain('>TAMPA BAY REAL ESTATE<');
+    expect(footerSource).toContain("t('footer.brand.tagline')");
+  });
+
+  it('should have 44px minimum social icon touch targets', () => {
+    expect(footerSource).toContain('width: 44px');
+    expect(footerSource).toContain('height: 44px');
   });
 });

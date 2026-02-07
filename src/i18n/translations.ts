@@ -25,6 +25,7 @@ export interface Translations {
   'header.skipToContent': string;
 
   // Footer
+  'footer.brand.tagline': string;
   'footer.brand.description': string;
   'footer.quickLinks': string;
   'footer.services': string;
@@ -79,6 +80,7 @@ export const translations: Record<'en' | 'es', Translations> = {
     'header.skipToContent': 'Skip to content',
 
     // Footer
+    'footer.brand.tagline': 'Tampa Bay Real Estate',
     'footer.brand.description': 'Your trusted partner in finding the perfect home in Tampa Bay\'s most desirable neighborhoods.',
     'footer.quickLinks': 'Quick Links',
     'footer.services': 'Services',
@@ -131,6 +133,7 @@ export const translations: Record<'en' | 'es', Translations> = {
     'header.skipToContent': 'Saltar al contenido',
 
     // Footer
+    'footer.brand.tagline': 'Bienes Raíces en Tampa Bay',
     'footer.brand.description': 'Su socia de confianza para encontrar el hogar perfecto en los vecindarios más deseados de Tampa Bay.',
     'footer.quickLinks': 'Enlaces Rápidos',
     'footer.services': 'Servicios',

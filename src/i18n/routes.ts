@@ -22,6 +22,11 @@ export const routeMap: Record<string, string> = {
   '/neighborhoods': '/vecindarios',
   '/calculators': '/calculadoras',
   '/blog': '/blog',
+  '/reviews': '/resenas',
+  '/valuation': '/valuacion',
+  '/relocation': '/reubicacion',
+  '/privacy': '/privacidad',
+  '/terms': '/terminos',
 };
 
 /**

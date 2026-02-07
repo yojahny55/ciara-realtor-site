@@ -7,9 +7,18 @@
  * Bilingual support with accessibility features
  */
 
-import { useTranslations } from '@/i18n';
+import { useTranslations, routeMap } from '@/i18n';
 import type { Lang } from '@/i18n';
 import FooterAccordion from '@/components/islands/footer-accordion';
+
+/**
+ * Get a localized path using the route map.
+ * For English, uses the English slug; for Spanish, uses the mapped Spanish slug.
+ */
+function getLocalizedPath(lang: Lang, enSlug: string): string {
+  const slug = lang === 'es' ? (routeMap[enSlug] ?? enSlug) : enSlug;
+  return `/${lang}${slug}/`;
+}
 
 interface Props {
   lang: Lang;
@@ -33,31 +42,31 @@ const address = {
 
 // Quick Links navigation
 const quickLinks = [
-  { href: `/${lang}/${lang === 'en' ? 'properties' : 'propiedades'}/`, label: t('nav.properties') },
-  { href: `/${lang}/${lang === 'en' ? 'neighborhoods' : 'vecindarios'}/`, label: t('footer.neighborhoods') },
-  { href: `/${lang}/${lang === 'en' ? 'about' : 'sobre-ciara'}/`, label: t('nav.about') },
-  { href: `/${lang}/${lang === 'en' ? 'reviews' : 'resenas'}/`, label: t('footer.clientReviews') },
+  { href: getLocalizedPath(lang, '/properties'), label: t('nav.properties') },
+  { href: getLocalizedPath(lang, '/neighborhoods'), label: t('footer.neighborhoods') },
+  { href: getLocalizedPath(lang, '/about'), label: t('nav.about') },
+  { href: getLocalizedPath(lang, '/reviews'), label: t('footer.clientReviews') },
 ];
 
 // Services links
 const servicesLinks = [
-  { href: `/${lang}/${lang === 'en' ? 'buy' : 'comprar'}/`, label: t('footer.buyHome') },
-  { href: `/${lang}/${lang === 'en' ? 'sell' : 'vender'}/`, label: t('footer.sellHome') },
-  { href: `/${lang}/${lang === 'en' ? 'valuation' : 'valuacion'}/`, label: t('footer.homeValuation') },
-  { href: `/${lang}/${lang === 'en' ? 'relocation' : 'reubicacion'}/`, label: t('footer.relocation') },
+  { href: getLocalizedPath(lang, '/buy'), label: t('footer.buyHome') },
+  { href: getLocalizedPath(lang, '/sell'), label: t('footer.sellHome') },
+  { href: getLocalizedPath(lang, '/valuation'), label: t('footer.homeValuation') },
+  { href: getLocalizedPath(lang, '/relocation'), label: t('footer.relocation') },
 ];
 
 // Contact links for accordion
 const contactLinks = [
   { href: phoneHref, label: phoneNumber },
   { href: emailHref, label: email },
-  { href: '#', label: `${address.line1}<br/>${address.line2}`, isAddress: true },
+  { href: '#', label: address.line1, addressLine2: address.line2 },
 ];
 
 // Legal links
 const legalLinks = [
-  { href: `/${lang}/${lang === 'en' ? 'privacy' : 'privacidad'}/`, label: t('footer.privacy') },
-  { href: `/${lang}/${lang === 'en' ? 'terms' : 'terminos'}/`, label: t('footer.terms') },
+  { href: getLocalizedPath(lang, '/privacy'), label: t('footer.privacy') },
+  { href: getLocalizedPath(lang, '/terms'), label: t('footer.terms') },
 ];
 
 // Accordion sections for mobile
@@ -160,8 +169,7 @@ const copyrightText = t('footer.copyright').replace('{year}', currentYear.toStri
             width="275"
             height="55"
           />
-        </a>
-        <p class="footer-tagline">TAMPA BAY REAL ESTATE</p>
+        </a>       
         <p class="footer-desc">{t('footer.brand.description')}</p>
       </div>
 
@@ -182,7 +190,7 @@ const copyrightText = t('footer.copyright').replace('{year}', currentYear.toStri
             <a href={link.href}>{link.label}</a>
           ))}
         </div>
-        <div class="footer-social">
+        <div class="footer-social" aria-label={t('footer.followUs')}>
           <a href="https://facebook.com/ciararuiz" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
@@ -480,7 +488,8 @@ const copyrightText = t('footer.copyright').replace('{year}', currentYear.toStri
   }
 
   :global(.accordion-link) {
-    display: block;
+    display: flex;
+    align-items: center;
     padding: 0.75rem 0;
     font-size: 1rem;
     color: #4a3f3a;
@@ -488,8 +497,6 @@ const copyrightText = t('footer.copyright').replace('{year}', currentYear.toStri
     transition: all 0.2s ease;
     border-radius: 6px;
     min-height: 44px;
-    display: flex;
-    align-items: center;
   }
 
   :global(.accordion-link:active) {
@@ -573,8 +580,8 @@ const copyrightText = t('footer.copyright').replace('{year}', currentYear.toStri
   }
 
   .footer-social a {
-    width: 42px;
-    height: 42px;
+    width: 44px;
+    height: 44px;
     background: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);

@@ -12,6 +12,7 @@ describe('Footer translations', () => {
     const t = translations.en;
 
     // Footer brand
+    expect(t['footer.brand.tagline']).toBe('Tampa Bay Real Estate');
     expect(t['footer.brand.description']).toBeDefined();
     expect(t['footer.brand.description']).toContain('trusted partner');
 
@@ -43,6 +44,7 @@ describe('Footer translations', () => {
     const t = translations.es;
 
     // Footer brand
+    expect(t['footer.brand.tagline']).toBe('Bienes Raíces en Tampa Bay');
     expect(t['footer.brand.description']).toBeDefined();
     expect(t['footer.brand.description']).toContain('socia de confianza');
 

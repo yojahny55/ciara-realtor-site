@@ -8,18 +8,25 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import type { JSX } from 'preact';
+import { ErrorBoundary } from '@/components/error-boundary';
 
 interface AccordionSection {
   id: string;
   title: string;
-  items: { href: string; label: string; isAddress?: boolean }[];
+  items: AccordionItem[];
+}
+
+interface AccordionItem {
+  href: string;
+  label: string;
+  addressLine2?: string;
 }
 
 interface Props {
   sections: AccordionSection[];
 }
 
-export default function FooterAccordion({ sections }: Props): JSX.Element {
+function FooterAccordionInner({ sections }: Props): JSX.Element {
   const [openSections, setOpenSections] = useState<Set<string>>(new Set());
 
   const toggleSection = (id: string): void => {
@@ -80,8 +87,12 @@ export default function FooterAccordion({ sections }: Props): JSX.Element {
                     class="accordion-item"
                     style={{ animationDelay: `${index * 0.05}s` }}
                   >
-                    {item.isAddress ? (
-                      <span class="accordion-address" dangerouslySetInnerHTML={{ __html: item.label }} />
+                    {item.addressLine2 ? (
+                      <span class="accordion-address">
+                        {item.label}
+                        <br />
+                        {item.addressLine2}
+                      </span>
                     ) : (
                       <a href={item.href} class="accordion-link">
                         {item.label}
@@ -95,5 +106,15 @@ export default function FooterAccordion({ sections }: Props): JSX.Element {
         );
       })}
     </div>
+  );
+}
+
+// Wrap in ErrorBoundary per project conventions
+// NOTE: Default export required by Astro island hydration (client:media directive)
+export default function FooterAccordion(props: Props): JSX.Element {
+  return (
+    <ErrorBoundary>
+      <FooterAccordionInner {...props} />
+    </ErrorBoundary>
   );
 }
