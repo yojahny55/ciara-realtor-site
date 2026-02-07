@@ -144,18 +144,13 @@ export function MobileNavInner({ lang, navLinks, phoneNumber, phoneHref }: Mobil
           >
             {/* ── Header ── */}
             <div class="drawer-header">
-              <div class="drawer-brand">
-                <div class="drawer-brand-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-                    <polyline points="9 22 9 12 15 12 15 22" />
-                  </svg>
-                </div>
-                <div class="drawer-brand-text">
-                  <span class="drawer-brand-name">Ciara Ruiz</span>
-                  <span class="drawer-brand-sub">REAL ESTATE</span>
-                </div>
-              </div>
+              <img
+                src="/images/logo-signature.webp"
+                alt="Ciara Ruiz Realtor"
+                class="drawer-logo"
+                width="220"
+                height="44"
+              />
               <button
                 type="button"
                 onClick={handleClose}
@@ -310,44 +305,10 @@ export function MobileNavInner({ lang, navLinks, phoneNumber, phoneHref }: Mobil
           justify-content: space-between;
           padding: 1.5rem 1.5rem 1.25rem;
         }
-        .drawer-brand {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-        }
-        .drawer-brand-icon {
-          width: 38px;
-          height: 38px;
-          background: linear-gradient(135deg, #B76E79 0%, #C9A87C 100%);
-          border-radius: 10px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: white;
-          flex-shrink: 0;
-          box-shadow: 0 2px 8px rgba(183,110,121,0.2);
-        }
-        .drawer-brand-text {
-          display: flex;
-          flex-direction: column;
-          gap: 2px;
-        }
-        .drawer-brand-name {
-          font-family: var(--font-display);
-          font-size: 1.05rem;
-          font-weight: 600;
-          color: #1A1A1A;
-          letter-spacing: 0.04em;
-          line-height: 1.1;
-        }
-        .drawer-brand-sub {
-          font-family: var(--font-body);
-          font-size: 0.6rem;
-          font-weight: 400;
-          color: #B76E79;
-          letter-spacing: 0.2em;
-          text-transform: uppercase;
-          line-height: 1;
+        .drawer-logo {
+          height: 44px;
+          width: auto;
+          display: block;
         }
         .close-button {
           width: 44px;
