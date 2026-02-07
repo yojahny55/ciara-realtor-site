@@ -16,16 +16,21 @@ import { detectLanguage } from '@/lib/language-detection';
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const { pathname } = context.url;
+
+  // Only root route needs language detection; skip early for all other
+  // routes to avoid accessing request.headers on prerendered pages.
+  if (pathname !== '/') {
+    return next();
+  }
+
   const cookies = context.cookies;
   const savedLang = cookies.get('preferredLanguage')?.value;
   const acceptLang = context.request.headers.get('Accept-Language') || '';
 
   const result = detectLanguage(pathname, savedLang, acceptLang);
 
-  // Not root route - pass through
-  if (!result) {
-    return next();
-  }
+  // detectLanguage returns null for non-root routes (already guarded above)
+  if (!result) return next();
 
   // Set cookie if needed (first-time detection)
   if (result.shouldSetCookie) {
