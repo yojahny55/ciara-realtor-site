@@ -8,6 +8,7 @@
 
 import Page from '@/layouts/Page.astro';
 import { useTranslations } from '@/i18n';
+import HeroSection from '@/components/homepage/hero-section.astro';
 
 const lang = 'en';
 const t = useTranslations(lang);
@@ -16,8 +17,8 @@ const t = useTranslations(lang);
 <Page
   title="Ciara Ruiz - Tampa Bay Real Estate Agent"
   description="Trusted bilingual real estate agent in Tampa Bay, FL. Specializing in helping families buy, sell, and invest in properties. Expert guidance in English and Spanish."
+  maxWidth="full"
+  noPadding={true}
 >
-  
-
-
+  <HeroSection lang={lang} />
 </Page>

@@ -60,6 +60,16 @@ export interface Translations {
   'welcome.agentIntro': string;
   'welcome.continue': string;
 
+  // Hero Section
+  'hero.headline': string;
+  'hero.subheadline': string;
+  'hero.ctaBuying': string;
+  'hero.ctaSelling': string;
+  'hero.eyebrow': string;
+  'hero.cardLabel': string;
+  'hero.stat1Label': string;
+  'hero.stat2Label': string;
+
   // Errors
   'error.notFound': string;
   'error.generic': string;
@@ -121,6 +131,16 @@ export const translations: Record<'en' | 'es', Translations> = {
     'welcome.agentIntro': 'Ciara Ruiz, helping Tampa families to find their dream home.',
     'welcome.continue': 'Continue',
 
+    // Hero Section
+    'hero.headline': "Buying a home is scary. We've got you.",
+    'hero.subheadline': "Tampa Bay's trusted bilingual agent",
+    'hero.ctaBuying': "I'm Buying",
+    'hero.ctaSelling': "I'm Selling",
+    'hero.eyebrow': 'Bilingual · Tampa Bay',
+    'hero.cardLabel': 'Your Dream Home Awaits',
+    'hero.stat1Label': 'Families Helped',
+    'hero.stat2Label': 'Bilingual',
+
     // Errors
     'error.notFound': 'Page Not Found',
     'error.generic': 'Something went wrong',
@@ -179,6 +199,16 @@ export const translations: Record<'en' | 'es', Translations> = {
     'welcome.message': 'Este sitio fue creado para ti.',
     'welcome.agentIntro': 'Ciara Ruiz, ayudando a familias de Tampa a encontrar el hogar de sus sueños.',
     'welcome.continue': 'Continuar',
+
+    // Hero Section
+    'hero.headline': 'Comprar una casa da miedo. Estamos contigo.',
+    'hero.subheadline': 'La agente bilingue de confianza en Tampa Bay',
+    'hero.ctaBuying': 'Estoy Comprando',
+    'hero.ctaSelling': 'Estoy Vendiendo',
+    'hero.eyebrow': 'Bilingüe · Tampa Bay',
+    'hero.cardLabel': 'Tu Hogar Ideal Te Espera',
+    'hero.stat1Label': 'Familias',
+    'hero.stat2Label': 'Bilingüe',
 
     // Errors
     'error.notFound': 'Página No Encontrada',
