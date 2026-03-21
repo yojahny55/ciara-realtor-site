@@ -82,6 +82,18 @@ export interface Translations {
   'intent.investTitle': string;
   'intent.investDesc': string;
 
+  // Trust Bar
+  'trust.ariaLabel': string;
+  'trust.licensed': string;
+  'trust.responseTime': string;
+  'trust.privacy': string;
+  'trust.bilingual': string;
+
+  // Testimonials Section
+  'testimonials.heading': string;
+  'testimonials.readMore': string;
+  'testimonials.ariaLabel': string;
+
   // Errors
   'error.notFound': string;
   'error.generic': string;
@@ -165,6 +177,18 @@ export const translations: Record<'en' | 'es', Translations> = {
     'intent.investTitle': 'Invest',
     'intent.investDesc': 'Build wealth through real estate',
 
+    // Trust Bar
+    'trust.ariaLabel': 'Credentials',
+    'trust.licensed': 'Licensed Florida Realtor',
+    'trust.responseTime': 'Responds within 2 hours',
+    'trust.privacy': 'Your information stays private',
+    'trust.bilingual': 'Bilingual: English & Español',
+
+    // Testimonials Section
+    'testimonials.heading': 'What Clients Say',
+    'testimonials.readMore': 'Read more',
+    'testimonials.ariaLabel': 'Customer testimonials and reviews',
+
     // Errors
     'error.notFound': 'Page Not Found',
     'error.generic': 'Something went wrong',
@@ -245,6 +269,18 @@ export const translations: Record<'en' | 'es', Translations> = {
     'intent.rentDesc': 'Descubre hogares de alquiler de calidad',
     'intent.investTitle': 'Invertir',
     'intent.investDesc': 'Construye riqueza con bienes raíces',
+
+    // Trust Bar
+    'trust.ariaLabel': 'Credenciales',
+    'trust.licensed': 'Agente Inmobiliario Licenciado en Florida',
+    'trust.responseTime': 'Responde en menos de 2 horas',
+    'trust.privacy': 'Tu información es confidencial',
+    'trust.bilingual': 'Bilingüe: English & Español',
+
+    // Testimonials Section
+    'testimonials.heading': 'Lo Que Dicen Nuestros Clientes',
+    'testimonials.readMore': 'Leer más',
+    'testimonials.ariaLabel': 'Testimonios y reseñas de clientes',
 
     // Errors
     'error.notFound': 'Página No Encontrada',

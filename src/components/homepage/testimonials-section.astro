@@ -1,0 +1,228 @@
+---
+/**
+ * Testimonials Section — demo8 glassmorphism aesthetic
+ *
+ * Static section displaying client testimonials from Content Collections.
+ * Zero client-side JavaScript — pure Astro SSG.
+ * Supports EN/ES languages with i18n translation keys.
+ */
+
+import { useTranslations } from '@/i18n';
+import { getTestimonials } from '@lib/content';
+import type { Lang } from '@/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const testimonials = await getTestimonials(lang);
+---
+
+<section
+  id="testimonials"
+  class="testimonials-section"
+  aria-label={t('testimonials.ariaLabel')}
+>
+  <div class="testimonials-container">
+    <h2 class="testimonials-heading">{t('testimonials.heading')}</h2>
+
+    <div class="testimonials-grid">
+      {testimonials.map((testimonial) => (
+        <article class="testimonial-card">
+          <!-- Avatar: photo or initials fallback -->
+          {testimonial.data.image ? (
+            <img
+              src={testimonial.data.image}
+              alt={testimonial.data.imageAlt ?? testimonial.data.name}
+              class="testimonial-avatar-img"
+              width="64"
+              height="64"
+              loading="lazy"
+            />
+          ) : (
+            <div class="testimonial-avatar-initials" aria-hidden="true">
+              {testimonial.data.name.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2)}
+            </div>
+          )}
+
+          <blockquote class="testimonial-blockquote">
+            <p
+              class="testimonial-quote"
+              title={testimonial.data.quote}
+            >
+              {testimonial.data.quote}
+            </p>
+            <footer class="testimonial-footer">
+              <cite class="testimonial-name">{testimonial.data.name}</cite>
+              {testimonial.data.type && (
+                <span class="testimonial-type">{testimonial.data.type}</span>
+              )}
+            </footer>
+          </blockquote>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ─── Section ─────────────────────────────────────────────── */
+  .testimonials-section {
+    background: var(--color-cream, #F5EDE8);
+    padding: var(--space-xl, 64px) var(--space-md, 24px);
+  }
+
+  /* ─── Container ──────────────────────────────────────────── */
+  .testimonials-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ─── Section Heading ────────────────────────────────────── */
+  .testimonials-heading {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: var(--color-charcoal);
+    text-align: center;
+    margin-bottom: var(--space-lg, 48px);
+  }
+
+  /* ─── Grid — Mobile first: 1 column ─────────────────────── */
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md, 24px);
+  }
+
+  /* ─── Card ───────────────────────────────────────────────── */
+  .testimonial-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--space-md, 24px);
+
+    /* Glassmorphism card */
+    background: var(--glass-white, rgba(255, 255, 255, 0.25));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.3));
+    border-radius: var(--radius-md, 20px);
+    box-shadow: 0 8px 32px rgba(183, 110, 121, 0.1);
+
+    transition:
+      transform var(--duration-normal, 0.4s) var(--ease-smooth, cubic-bezier(0.4, 0, 0.2, 1)),
+      box-shadow var(--duration-normal, 0.4s) var(--ease-smooth, cubic-bezier(0.4, 0, 0.2, 1));
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(183, 110, 121, 0.15);
+  }
+
+  /* ─── Avatar: image ──────────────────────────────────────── */
+  .testimonial-avatar-img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: var(--space-sm, 16px);
+    border: 2px solid var(--color-primary, #B76E79);
+  }
+
+  /* ─── Avatar: initials fallback ─────────────────────────── */
+  .testimonial-avatar-initials {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--color-primary, #B76E79);
+    color: #ffffff;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--space-sm, 16px);
+    flex-shrink: 0;
+  }
+
+  /* ─── Blockquote ─────────────────────────────────────────── */
+  .testimonial-blockquote {
+    margin: 0;
+    flex: 1;
+  }
+
+  /* ─── Quote with CSS truncation (no JS) ─────────────────── */
+  .testimonial-quote {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--color-charcoal, #2A2A2A);
+    margin: 0 0 var(--space-sm, 16px);
+
+    /* CSS-only truncation — 4 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* ─── Footer ─────────────────────────────────────────────── */
+  .testimonial-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  /* ─── Name ───────────────────────────────────────────────── */
+  .testimonial-name {
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    font-style: normal;
+    color: var(--color-charcoal, #2A2A2A);
+    letter-spacing: 0.02em;
+  }
+
+  /* ─── Transaction type ───────────────────────────────────── */
+  .testimonial-type {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    color: var(--color-primary, #B76E79);
+    font-weight: 500;
+  }
+
+  /* ─── Tablet (768px–1023px): 2 columns ──────────────────── */
+  @media (min-width: 768px) {
+    .testimonials-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-lg, 48px);
+    }
+  }
+
+  /* ─── Desktop (≥1024px): 3 columns ──────────────────────── */
+  @media (min-width: 1024px) {
+    .testimonials-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .testimonials-section {
+      padding: var(--space-xl, 64px) var(--space-lg, 48px);
+    }
+  }
+
+  /* ─── Reduced motion ─────────────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    .testimonial-card {
+      transition: none;
+    }
+
+    .testimonial-card:hover {
+      transform: none;
+    }
+  }
+</style>
