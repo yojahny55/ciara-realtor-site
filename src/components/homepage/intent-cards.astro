@@ -1,0 +1,245 @@
+---
+/**
+ * Intent Selection Cards — demo8 glassmorphism aesthetic
+ *
+ * Static navigation section placed directly after the hero.
+ * The section id="intent-selection" matches the hero CTAs anchor.
+ * Four cards: Buy, Sell, Rent, Invest — pure SSG, no client JS.
+ */
+
+import { useTranslations } from '@/i18n';
+import type { Lang } from '@/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const cards = [
+  { key: 'buy', href: `/${lang === 'en' ? 'en/buyers' : 'es/compradores'}` },
+  { key: 'sell', href: `/${lang === 'en' ? 'en/sellers' : 'es/vendedores'}` },
+  { key: 'rent', href: `/${lang === 'en' ? 'en/renters' : 'es/inquilinos'}` },
+  { key: 'invest', href: `/${lang === 'en' ? 'en/investors' : 'es/inversionistas'}` },
+] as const;
+---
+
+<section
+  id="intent-selection"
+  class="intent-section"
+  aria-labelledby="intent-heading"
+>
+  <div class="intent-container">
+    <h2 id="intent-heading" class="intent-heading">{t('intent.heading')}</h2>
+
+    <nav aria-label={t('intent.ariaLabel')} class="intent-grid">
+      {cards.map((card) => (
+        <a
+          href={card.href}
+          class="intent-card"
+          aria-label={`${t(`intent.${card.key}Title` as const)} — ${t(`intent.${card.key}Desc` as const)}`}
+        >
+          <span class="intent-icon" aria-hidden="true">
+            {card.key === 'buy' && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+            )}
+            {card.key === 'sell' && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23"/>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            )}
+            {card.key === 'rent' && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
+              </svg>
+            )}
+            {card.key === 'invest' && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+              </svg>
+            )}
+          </span>
+          <h3 class="intent-title">{t(`intent.${card.key}Title` as const)}</h3>
+          <p class="intent-desc">{t(`intent.${card.key}Desc` as const)}</p>
+        </a>
+      ))}
+    </nav>
+  </div>
+</section>
+
+<style>
+  /* ─── Section ─────────────────────────────────────────────── */
+  .intent-section {
+    background: var(--color-cream-mid, #e8dcd4);
+    padding: var(--space-xl, 64px) var(--space-md, 24px);
+  }
+
+  /* ─── Container ──────────────────────────────────────────── */
+  .intent-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ─── Section Heading ────────────────────────────────────── */
+  .intent-heading {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: var(--color-charcoal);
+    text-align: center;
+    margin-bottom: var(--space-lg, 48px);
+  }
+
+  /* ─── Grid ───────────────────────────────────────────────── */
+  /* Mobile-first: 2x2 grid */
+  .intent-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  /* ─── Card ───────────────────────────────────────────────── */
+  .intent-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    color: var(--color-charcoal);
+    padding: var(--space-md, 24px) var(--space-sm, 16px);
+    min-height: 160px;
+    /* 44x44 minimum touch target ensured by card itself being the full link */
+    min-width: 44px;
+
+    /* Apple-style frosted glass */
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(var(--blur-glass, 30px)) saturate(1.8);
+    -webkit-backdrop-filter: blur(var(--blur-glass, 30px)) saturate(1.8);
+    border: 1px solid var(--glass-border-strong);
+    border-radius: var(--radius-md);
+    box-shadow:
+      0 2px 12px rgba(0, 0, 0, 0.04),
+      0 8px 32px rgba(0, 0, 0, 0.03),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+    transition:
+      background var(--duration-fast) var(--ease-smooth),
+      border-color var(--duration-fast) var(--ease-smooth),
+      box-shadow var(--duration-fast) var(--ease-smooth),
+      transform var(--duration-fast) var(--ease-smooth),
+      color var(--duration-fast) var(--ease-smooth);
+  }
+
+  /* ─── Card Hover ─────────────────────────────────────────── */
+  .intent-card:hover {
+    background: rgba(255, 255, 255, 0.7);
+    border-color: var(--color-secondary);
+    box-shadow:
+      0 4px 20px rgba(201, 168, 124, 0.2),
+      0 12px 40px rgba(0, 0, 0, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    transform: translateY(-2px);
+  }
+
+  .intent-card:hover .intent-icon {
+    color: var(--color-primary);
+  }
+
+  /* ─── Card Active ────────────────────────────────────────── */
+  .intent-card:active {
+    transform: translateY(-2px) scale(0.98);
+  }
+
+  /* ─── Card Focus ─────────────────────────────────────────── */
+  .intent-card:focus-visible {
+    outline: 2px solid var(--color-secondary);
+    outline-offset: 2px;
+  }
+
+  /* ─── Icon ───────────────────────────────────────────────── */
+  .intent-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-secondary);
+  }
+
+  .intent-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ─── Title ──────────────────────────────────────────────── */
+  .intent-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: inherit;
+    margin-bottom: 0.5rem;
+  }
+
+  /* ─── Description ────────────────────────────────────────── */
+  .intent-desc {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--color-charcoal-soft);
+    margin: 0;
+  }
+
+  /* hover elevates desc readability */
+  .intent-card:hover .intent-desc {
+    color: var(--color-charcoal);
+  }
+
+  /* gold accent underline on hover title */
+  .intent-card:hover .intent-title {
+    color: var(--color-charcoal);
+  }
+
+  /* ─── Tablet (768px–1023px): larger card padding ─────────── */
+  @media (min-width: 768px) {
+    .intent-card {
+      padding: var(--space-lg, 48px) var(--space-md, 24px);
+      min-height: 200px;
+    }
+  }
+
+  /* ─── Desktop (≥ 1024px): 4-column row ──────────────────── */
+  @media (min-width: 1024px) {
+    .intent-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .intent-section {
+      padding: var(--space-xl, 64px) var(--space-lg, 48px);
+    }
+  }
+
+  /* ─── Reduced motion ─────────────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    .intent-card {
+      transition:
+        background var(--duration-fast) var(--ease-smooth),
+        color var(--duration-fast) var(--ease-smooth);
+    }
+
+    .intent-card:hover {
+      transform: none;
+    }
+
+    .intent-card:active {
+      transform: none;
+    }
+  }
+</style>

@@ -70,6 +70,18 @@ export interface Translations {
   'hero.stat1Label': string;
   'hero.stat2Label': string;
 
+  // Intent Selection Cards
+  'intent.heading': string;
+  'intent.ariaLabel': string;
+  'intent.buyTitle': string;
+  'intent.buyDesc': string;
+  'intent.sellTitle': string;
+  'intent.sellDesc': string;
+  'intent.rentTitle': string;
+  'intent.rentDesc': string;
+  'intent.investTitle': string;
+  'intent.investDesc': string;
+
   // Errors
   'error.notFound': string;
   'error.generic': string;
@@ -141,6 +153,18 @@ export const translations: Record<'en' | 'es', Translations> = {
     'hero.stat1Label': 'Families Helped',
     'hero.stat2Label': 'Bilingual',
 
+    // Intent Selection Cards
+    'intent.heading': 'How can I help you today?',
+    'intent.ariaLabel': 'Choose your path',
+    'intent.buyTitle': 'Buy',
+    'intent.buyDesc': 'Find your dream home in Tampa Bay',
+    'intent.sellTitle': 'Sell',
+    'intent.sellDesc': 'Get top dollar for your property',
+    'intent.rentTitle': 'Rent',
+    'intent.rentDesc': 'Discover quality rental homes',
+    'intent.investTitle': 'Invest',
+    'intent.investDesc': 'Build wealth through real estate',
+
     // Errors
     'error.notFound': 'Page Not Found',
     'error.generic': 'Something went wrong',
@@ -209,6 +233,18 @@ export const translations: Record<'en' | 'es', Translations> = {
     'hero.cardLabel': 'Tu Hogar Ideal Te Espera',
     'hero.stat1Label': 'Familias',
     'hero.stat2Label': 'Bilingüe',
+
+    // Intent Selection Cards
+    'intent.heading': '¿Cómo puedo ayudarte hoy?',
+    'intent.ariaLabel': 'Elige tu camino',
+    'intent.buyTitle': 'Comprar',
+    'intent.buyDesc': 'Encuentra tu hogar ideal en Tampa Bay',
+    'intent.sellTitle': 'Vender',
+    'intent.sellDesc': 'Obtén el mejor precio por tu propiedad',
+    'intent.rentTitle': 'Alquilar',
+    'intent.rentDesc': 'Descubre hogares de alquiler de calidad',
+    'intent.investTitle': 'Invertir',
+    'intent.investDesc': 'Construye riqueza con bienes raíces',
 
     // Errors
     'error.notFound': 'Página No Encontrada',

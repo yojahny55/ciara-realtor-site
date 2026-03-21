@@ -9,6 +9,7 @@
 import Page from '@/layouts/Page.astro';
 import { useTranslations } from '@/i18n';
 import HeroSection from '@/components/homepage/hero-section.astro';
+import IntentCards from '@/components/homepage/intent-cards.astro';
 
 const lang = 'en';
 const t = useTranslations(lang);
@@ -21,4 +22,5 @@ const t = useTranslations(lang);
   noPadding={true}
 >
   <HeroSection lang={lang} />
+  <IntentCards lang={lang} />
 </Page>
