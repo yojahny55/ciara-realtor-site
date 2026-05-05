@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import { fileURLToPath } from 'node:url';
 
 import cloudflare from '@astrojs/cloudflare';
+import mdx from '@astrojs/mdx';
 import preact from '@astrojs/preact';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
@@ -21,6 +22,7 @@ export default defineConfig({
   }),
 
   integrations: [
+    mdx(),
     preact({ compat: true }),  // Enable React compatibility
     sitemap({
       i18n: {

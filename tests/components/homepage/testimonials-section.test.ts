@@ -68,6 +68,23 @@ describe('TestimonialsSection Component', () => {
     expect(source).toContain('<article');
   });
 
+  // ─── Section header with overline + subtitle (demo8 match) ────
+  it('should have overline element for "Client Stories" label', () => {
+    expect(source).toContain('class="overline"');
+    expect(source).toContain("t('testimonials.overline')");
+  });
+
+  it('should have subtitle paragraph below heading', () => {
+    expect(source).toContain("t('testimonials.subtitle')");
+  });
+
+  // ─── Gold stars (demo8 match) ──────────────────────────────────
+  it('should render 5-star rating SVGs', () => {
+    expect(source).toContain('testimonial-stars');
+    expect(source).toContain('viewBox="0 0 24 24"');
+    expect(source).toContain('polygon');
+  });
+
   // ─── Translation key usage (AC#1) ─────────────────────────────
   it('should use testimonials.heading translation key', () => {
     expect(source).toContain("t('testimonials.heading')");
@@ -77,9 +94,9 @@ describe('TestimonialsSection Component', () => {
     expect(source).toContain("t('testimonials.ariaLabel')");
   });
 
-  // ─── Initials fallback logic (AC#1) ───────────────────────────
+  // ─── Avatar: image and initials fallback (AC#1) ───────────────
   it('should render initials fallback when image is missing', () => {
-    expect(source).toContain('testimonial-avatar-initials');
+    expect(source).toContain('testimonial-initials');
   });
 
   it('should extract initials from name by splitting on spaces', () => {
@@ -88,14 +105,8 @@ describe('TestimonialsSection Component', () => {
   });
 
   it('should render image when present', () => {
-    expect(source).toContain('testimonial-avatar-img');
+    expect(source).toContain('testimonial-avatar');
     expect(source).toContain('testimonial.data.image');
-  });
-
-  // ─── Quote truncation — CSS only (AC#2, #5) ───────────────────
-  it('should use CSS line-clamp for quote truncation (no JS)', () => {
-    expect(source).toContain('-webkit-line-clamp');
-    expect(source).toContain('-webkit-box-orient: vertical');
   });
 
   it('should not contain client:load or client:only hydration directives (AC#5)', () => {
@@ -109,14 +120,38 @@ describe('TestimonialsSection Component', () => {
     expect(source).toContain('grid-template-columns');
   });
 
-  it('should have tablet breakpoint at 768px for 2-column layout (AC#3)', () => {
-    expect(source).toContain('min-width: 768px');
+  it('should have 3-column desktop grid', () => {
+    expect(source).toContain('repeat(3, 1fr)');
+  });
+
+  it('should have tablet 2-column breakpoint at 1023px (AC#3)', () => {
+    expect(source).toContain('max-width: 1023px');
     expect(source).toContain('repeat(2, 1fr)');
   });
 
-  it('should have desktop breakpoint at 1024px for 3-column layout (AC#3)', () => {
-    expect(source).toContain('min-width: 1024px');
-    expect(source).toContain('repeat(3, 1fr)');
+  it('should have mobile breakpoint collapsing to 1 column (AC#3)', () => {
+    expect(source).toContain('max-width: 767px');
+    expect(source).toContain('grid-template-columns: 1fr');
+  });
+
+  // ─── Quote truncation + Read more (AC#2) ──────────────────────
+  it('should have -webkit-line-clamp for quote truncation (AC#2)', () => {
+    expect(source).toContain('-webkit-line-clamp: 4');
+  });
+
+  it('should have testimonial-read-more element (AC#2)', () => {
+    expect(source).toContain('testimonial-read-more');
+    expect(source).toContain("t('testimonials.readMore')");
+  });
+
+  // ─── cite inside blockquote footer (AC#4) ─────────────────────
+  it('should have cite inside blockquote footer (AC#4)', () => {
+    // cite and footer must both appear inside blockquote
+    const blockquoteStart = source.indexOf('<blockquote');
+    const blockquoteEnd = source.indexOf('</blockquote>', blockquoteStart);
+    const blockquoteContent = source.slice(blockquoteStart, blockquoteEnd);
+    expect(blockquoteContent).toContain('<footer');
+    expect(blockquoteContent).toContain('<cite');
   });
 
   // ─── Glassmorphism design system (AC#4) ───────────────────────
@@ -140,8 +175,8 @@ describe('TestimonialsSection Component', () => {
     expect(source).toContain('var(--font-body)');
   });
 
-  it('should use glassmorphism glass-white background', () => {
-    expect(source).toContain('var(--glass-white');
+  it('should use demo8 glass card styling with rgba white background', () => {
+    expect(source).toContain('rgba(255, 255, 255, 0.18)');
   });
 
   // ─── Accessibility (AC#4) ─────────────────────────────────────
@@ -160,18 +195,26 @@ describe('TestimonialsSection Component', () => {
   // ─── Hover interaction (AC#4) ─────────────────────────────────
   it('should have hover state on testimonial cards', () => {
     expect(source).toContain('.testimonial-card:hover');
-    expect(source).toContain('translateY(-4px)');
+    expect(source).toContain('translateY(-5px)');
   });
 
-  // ─── Testimonial type display (AC#1) ──────────────────────────
+  // ─── Testimonial type/role display (AC#1) ─────────────────────
   it('should render transaction type from testimonial data', () => {
-    expect(source).toContain('testimonial-type');
+    expect(source).toContain('testimonial-role');
     expect(source).toContain('testimonial.data.type');
   });
 
-  // ─── Translation keys in translations.ts ──────────────────────
+  // ─── Translation keys in Translations interface ────────────────
+  it('should have testimonials.overline in Translations interface', () => {
+    expect(translations).toContain("'testimonials.overline'");
+  });
+
   it('should have testimonials.heading in Translations interface', () => {
     expect(translations).toContain("'testimonials.heading'");
+  });
+
+  it('should have testimonials.subtitle in Translations interface', () => {
+    expect(translations).toContain("'testimonials.subtitle'");
   });
 
   it('should have testimonials.readMore in Translations interface', () => {
@@ -184,6 +227,10 @@ describe('TestimonialsSection Component', () => {
 
   it('should have EN heading value "What Clients Say"', () => {
     expect(translations).toContain("'testimonials.heading': 'What Clients Say'");
+  });
+
+  it('should have EN overline value "Client Stories"', () => {
+    expect(translations).toContain("'testimonials.overline': 'Client Stories'");
   });
 
   it('should have EN readMore value "Read more"', () => {

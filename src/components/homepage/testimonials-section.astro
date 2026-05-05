@@ -1,10 +1,10 @@
 ---
 /**
- * Testimonials Section — demo8 glassmorphism aesthetic
+ * Testimonials Section — identical to demo8 glassmorphism design
  *
- * Static section displaying client testimonials from Content Collections.
- * Zero client-side JavaScript — pure Astro SSG.
- * Supports EN/ES languages with i18n translation keys.
+ * Static Astro SSG component. Zero client JS.
+ * Overline + display heading + subtitle header.
+ * Cards: 5 gold stars, italic quote, horizontal author row.
  */
 
 import { useTranslations } from '@/i18n';
@@ -26,192 +26,261 @@ const testimonials = await getTestimonials(lang);
   aria-label={t('testimonials.ariaLabel')}
 >
   <div class="testimonials-container">
-    <h2 class="testimonials-heading">{t('testimonials.heading')}</h2>
+
+    <!-- Section header: overline + display heading + subtitle -->
+    <div class="section-header">
+      <span class="overline">{t('testimonials.overline')}</span>
+      <h2 class="testimonials-heading">{t('testimonials.heading')}</h2>
+      <p class="testimonials-subtitle">{t('testimonials.subtitle')}</p>
+    </div>
 
     <div class="testimonials-grid">
       {testimonials.map((testimonial) => (
         <article class="testimonial-card">
-          <!-- Avatar: photo or initials fallback -->
-          {testimonial.data.image ? (
-            <img
-              src={testimonial.data.image}
-              alt={testimonial.data.imageAlt ?? testimonial.data.name}
-              class="testimonial-avatar-img"
-              width="64"
-              height="64"
-              loading="lazy"
-            />
-          ) : (
-            <div class="testimonial-avatar-initials" aria-hidden="true">
-              {testimonial.data.name.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2)}
-            </div>
-          )}
 
-          <blockquote class="testimonial-blockquote">
-            <p
-              class="testimonial-quote"
-              title={testimonial.data.quote}
-            >
-              {testimonial.data.quote}
-            </p>
-            <footer class="testimonial-footer">
-              <cite class="testimonial-name">{testimonial.data.name}</cite>
-              {testimonial.data.type && (
-                <span class="testimonial-type">{testimonial.data.type}</span>
-              )}
+          <!-- 5 gold stars -->
+          <div class="testimonial-stars" aria-label="5 stars">
+            {[1,2,3,4,5].map(() => (
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            ))}
+          </div>
+
+          <!-- Quote with truncation + Read more (CSS-only, AC#2) -->
+          <blockquote>
+            <p class="testimonial-text">"{testimonial.data.quote}"</p>
+            <span class="testimonial-read-more" aria-hidden="true">{t('testimonials.readMore')}</span>
+
+            <!-- Author attribution inside blockquote (AC#4) -->
+            <footer class="testimonial-author">
+              <div class="testimonial-avatar">
+                {testimonial.data.image ? (
+                  <img
+                    src={testimonial.data.image}
+                    alt={testimonial.data.imageAlt ?? testimonial.data.name}
+                    width="48"
+                    height="48"
+                    loading="lazy"
+                  />
+                ) : (
+                  <span class="testimonial-initials" aria-hidden="true">
+                    {testimonial.data.name.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2)}
+                  </span>
+                )}
+              </div>
+              <div class="testimonial-info">
+                <cite class="testimonial-name">{testimonial.data.name}</cite>
+                {testimonial.data.type && (
+                  <span class="testimonial-role">{testimonial.data.type}</span>
+                )}
+              </div>
             </footer>
           </blockquote>
+
         </article>
       ))}
     </div>
+
   </div>
 </section>
 
 <style>
   /* ─── Section ─────────────────────────────────────────────── */
   .testimonials-section {
-    background: var(--color-cream, #F5EDE8);
-    padding: var(--space-xl, 64px) var(--space-md, 24px);
+    position: relative;
+    padding: 10rem 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 80% 50%, rgba(183, 110, 121, 0.25) 0%, transparent 65%),
+      radial-gradient(ellipse 40% 60% at 15% 50%, rgba(212, 165, 165, 0.1) 0%, transparent 55%),
+      var(--color-cream, #F5EDE8);
   }
 
   /* ─── Container ──────────────────────────────────────────── */
   .testimonials-container {
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 2rem;
   }
 
-  /* ─── Section Heading ────────────────────────────────────── */
+  /* ─── Section Header ─────────────────────────────────────── */
+  .section-header {
+    text-align: center;
+    margin-bottom: 6rem;
+  }
+
+  .overline {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-primary, #B76E79);
+    margin-bottom: 1rem;
+  }
+
   .testimonials-heading {
     font-family: var(--font-display);
-    font-size: clamp(1.6rem, 3vw, 2.25rem);
-    font-weight: 400;
-    letter-spacing: 0.01em;
-    color: var(--color-charcoal);
-    text-align: center;
-    margin-bottom: var(--space-lg, 48px);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: 0.02em;
+    color: var(--color-charcoal, #2A2A2A);
+    margin-bottom: 1rem;
   }
 
-  /* ─── Grid — Mobile first: 1 column ─────────────────────── */
+  .testimonials-subtitle {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #4A4A4A;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* ─── Grid ───────────────────────────────────────────────── */
   .testimonials-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-md, 24px);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
   }
 
-  /* ─── Card ───────────────────────────────────────────────── */
+  /* ─── Card — exact demo8 glass-strong styling ────────────── */
   .testimonial-card {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: var(--space-md, 24px);
-
-    /* Glassmorphism card */
-    background: var(--glass-white, rgba(255, 255, 255, 0.25));
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.3));
-    border-radius: var(--radius-md, 20px);
-    box-shadow: 0 8px 32px rgba(183, 110, 121, 0.1);
-
-    transition:
-      transform var(--duration-normal, 0.4s) var(--ease-smooth, cubic-bezier(0.4, 0, 0.2, 1)),
-      box-shadow var(--duration-normal, 0.4s) var(--ease-smooth, cubic-bezier(0.4, 0, 0.2, 1));
+    padding: 4rem;
+    border-radius: 20px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-top: 2px solid rgba(255, 255, 255, 0.6);
+    border-left: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px rgba(183, 110, 121, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.5);
   }
 
   .testimonial-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(183, 110, 121, 0.15);
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.28);
+    box-shadow:
+      0 16px 48px rgba(183, 110, 121, 0.15),
+      0 0 30px rgba(212, 165, 165, 0.2),
+      inset 0 2px 4px rgba(255, 255, 255, 0.6);
+    border-color: rgba(212, 165, 165, 0.45);
   }
 
-  /* ─── Avatar: image ──────────────────────────────────────── */
-  .testimonial-avatar-img {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: var(--space-sm, 16px);
-    border: 2px solid var(--color-primary, #B76E79);
-  }
-
-  /* ─── Avatar: initials fallback ─────────────────────────── */
-  .testimonial-avatar-initials {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background: var(--color-primary, #B76E79);
-    color: #ffffff;
-    font-family: var(--font-display);
-    font-size: 1.25rem;
-    font-weight: 600;
+  /* ─── Stars ──────────────────────────────────────────────── */
+  .testimonial-stars {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: var(--space-sm, 16px);
-    flex-shrink: 0;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+    color: var(--color-secondary, #C9A87C);
   }
 
-  /* ─── Blockquote ─────────────────────────────────────────── */
-  .testimonial-blockquote {
-    margin: 0;
-    flex: 1;
+  .testimonial-stars svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
   }
 
-  /* ─── Quote with CSS truncation (no JS) ─────────────────── */
-  .testimonial-quote {
+  /* ─── Quote text — truncated at 4 lines (AC#2) ──────────── */
+  .testimonial-text {
     font-family: var(--font-body);
-    font-size: 0.9375rem;
-    line-height: 1.65;
+    font-size: 1.05rem;
+    line-height: 1.7;
     color: var(--color-charcoal, #2A2A2A);
-    margin: 0 0 var(--space-sm, 16px);
-
-    /* CSS-only truncation — 4 lines */
+    margin-bottom: 0.5rem;
+    font-style: italic;
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
 
-  /* ─── Footer ─────────────────────────────────────────────── */
-  .testimonial-footer {
+  /* ─── Read more hint (CSS-only, AC#2) ───────────────────── */
+  .testimonial-read-more {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--color-primary, #B76E79);
+    margin-bottom: 1.5rem;
+    cursor: default;
+  }
+
+  /* ─── Author row (blockquote footer, AC#4) ──────────────── */
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0;
+  }
+
+  /* ─── Avatar circle ──────────────────────────────────────── */
+  .testimonial-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #D4A5A5, #C9A87C);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .testimonial-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .testimonial-initials {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  /* ─── Name & role ────────────────────────────────────────── */
+  .testimonial-info {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 2px;
   }
 
-  /* ─── Name ───────────────────────────────────────────────── */
   .testimonial-name {
-    font-family: var(--font-display);
-    font-size: 0.9375rem;
-    font-weight: 600;
-    font-style: normal;
-    color: var(--color-charcoal, #2A2A2A);
-    letter-spacing: 0.02em;
-  }
-
-  /* ─── Transaction type ───────────────────────────────────── */
-  .testimonial-type {
     font-family: var(--font-body);
-    font-size: 0.8125rem;
-    color: var(--color-primary, #B76E79);
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--color-charcoal, #1A1A1A);
   }
 
-  /* ─── Tablet (768px–1023px): 2 columns ──────────────────── */
-  @media (min-width: 768px) {
+  .testimonial-role {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: #4A4A4A;
+  }
+
+  /* ─── Tablet (768px–1023px): 2 columns (AC#3) ───────────── */
+  @media (max-width: 1023px) {
     .testimonials-grid {
       grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-lg, 48px);
     }
   }
 
-  /* ─── Desktop (≥1024px): 3 columns ──────────────────────── */
-  @media (min-width: 1024px) {
+  /* ─── Mobile (<768px): 1 column (AC#2, AC#3) ────────────── */
+  @media (max-width: 767px) {
     .testimonials-grid {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr;
     }
 
     .testimonials-section {
-      padding: var(--space-xl, 64px) var(--space-lg, 48px);
+      padding: 6rem 0;
+    }
+
+    .section-header {
+      margin-bottom: 4rem;
     }
   }
 

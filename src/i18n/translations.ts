@@ -90,7 +90,9 @@ export interface Translations {
   'trust.bilingual': string;
 
   // Testimonials Section
+  'testimonials.overline': string;
   'testimonials.heading': string;
+  'testimonials.subtitle': string;
   'testimonials.readMore': string;
   'testimonials.ariaLabel': string;
 
@@ -185,7 +187,9 @@ export const translations: Record<'en' | 'es', Translations> = {
     'trust.bilingual': 'Bilingual: English & Español',
 
     // Testimonials Section
+    'testimonials.overline': 'Client Stories',
     'testimonials.heading': 'What Clients Say',
+    'testimonials.subtitle': 'Real experiences from families who found their dream homes',
     'testimonials.readMore': 'Read more',
     'testimonials.ariaLabel': 'Customer testimonials and reviews',
 
@@ -278,7 +282,9 @@ export const translations: Record<'en' | 'es', Translations> = {
     'trust.bilingual': 'Bilingüe: English & Español',
 
     // Testimonials Section
+    'testimonials.overline': 'Historias de Clientes',
     'testimonials.heading': 'Lo Que Dicen Nuestros Clientes',
+    'testimonials.subtitle': 'Experiencias reales de familias que encontraron el hogar de sus sueños',
     'testimonials.readMore': 'Leer más',
     'testimonials.ariaLabel': 'Testimonios y reseñas de clientes',
 
