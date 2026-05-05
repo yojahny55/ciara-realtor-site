@@ -68,9 +68,9 @@ describe('Trust Bar Component', () => {
     expect(content).toContain('--color-secondary');
   });
 
-  // ─── Background off-white (6.8) ───────────────────────────────
-  it('should use --color-cream-white token for off-white background', () => {
-    expect(content).toContain('--color-cream-white');
+  // ─── Background transparent (lets page-level orb backdrop show through) ─
+  it('should use transparent background to expose the AnimatedBackground orbs', () => {
+    expect(content).toMatch(/\.trust-bar\s*\{[^}]*background:\s*transparent/);
   });
 
   // ─── Font body token (6.9) ────────────────────────────────────

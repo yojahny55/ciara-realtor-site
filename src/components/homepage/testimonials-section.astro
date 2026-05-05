@@ -54,7 +54,7 @@ const testimonials = await getTestimonials(lang);
 
             <!-- Author attribution inside blockquote (AC#4) -->
             <footer class="testimonial-author">
-              <div class="testimonial-avatar">
+              <div class="testimonial-avatar" style="background: linear-gradient(135deg, #ECE0DB 0%, #D8C5BD 100%)">
                 {testimonial.data.image ? (
                   <img
                     src={testimonial.data.image}
@@ -62,6 +62,7 @@ const testimonials = await getTestimonials(lang);
                     width="48"
                     height="48"
                     loading="lazy"
+                    decoding="async"
                   />
                 ) : (
                   <span class="testimonial-initials" aria-hidden="true">
@@ -90,10 +91,7 @@ const testimonials = await getTestimonials(lang);
   .testimonials-section {
     position: relative;
     padding: 10rem 0;
-    background:
-      radial-gradient(ellipse 60% 80% at 80% 50%, rgba(183, 110, 121, 0.25) 0%, transparent 65%),
-      radial-gradient(ellipse 40% 60% at 15% 50%, rgba(212, 165, 165, 0.1) 0%, transparent 55%),
-      var(--color-cream, #F5EDE8);
+    background: transparent;
   }
 
   /* ─── Container ──────────────────────────────────────────── */
@@ -118,24 +116,28 @@ const testimonials = await getTestimonials(lang);
     letter-spacing: 0.2em;
     color: var(--color-primary, #B76E79);
     margin-bottom: 1rem;
+    /* Tailwind ships an `.overline` utility (text-decoration: overline);
+       explicit reset prevents the line-above-text artifact from leaking in. */
+    text-decoration: none;
   }
 
   .testimonials-heading {
     font-family: var(--font-display);
-    font-size: clamp(2rem, 5vw, 3rem);
+    font-size: clamp(2.5rem, 6vw, 4rem);
     font-weight: 500;
-    line-height: 1.15;
+    line-height: 1.1;
     letter-spacing: 0.02em;
-    color: var(--color-charcoal, #2A2A2A);
-    margin-bottom: 1rem;
+    color: var(--color-charcoal, #1A1A1A);
+    margin-bottom: 1.25rem;
   }
 
   .testimonials-subtitle {
     font-family: var(--font-body);
-    font-size: 1.1rem;
+    font-size: 1.15rem;
+    font-weight: 400;
     line-height: 1.6;
     color: #4A4A4A;
-    max-width: 600px;
+    max-width: 640px;
     margin: 0 auto;
   }
 

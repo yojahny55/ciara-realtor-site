@@ -1,0 +1,169 @@
+---
+import { useTranslations } from '@/i18n';
+import type { Lang } from '@/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+interface Badge {
+  label: string;
+  icon: 'homes' | 'bilingual' | 'award' | 'nar' | 'board';
+}
+
+const badges: Badge[] = [
+  { label: t('trustBadges.homesSold'), icon: 'homes' },
+  { label: t('trustBadges.bilingual'), icon: 'bilingual' },
+  { label: t('trustBadges.topAgent'), icon: 'award' },
+  { label: t('trustBadges.narCertified'), icon: 'nar' },
+  { label: t('trustBadges.localBoard'), icon: 'board' },
+];
+---
+
+<section class="trust-badges-section" aria-label={t('trustBadges.ariaLabel')}>
+  <div class="trust-badges-container">
+    <h2 class="trust-badges-heading">{t('trustBadges.heading')}</h2>
+
+    <ul class="trust-badges-grid" role="list">
+      {badges.map((badge) => (
+        <li class="trust-badge-card">
+          <span class="trust-badge-icon" aria-hidden="true">
+            {badge.icon === 'homes' && (
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="var(--color-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 18L24 6l18 12v22a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2z"/>
+                <polyline points="18 42 18 26 30 26 30 42"/>
+                <circle cx="24" cy="14" r="2" fill="var(--color-secondary)" stroke="none"/>
+              </svg>
+            )}
+            {badge.icon === 'bilingual' && (
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="var(--color-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="24" cy="24" r="18"/>
+                <path d="M6 24h36"/>
+                <path d="M24 6c-5 6-8 12-8 18s3 12 8 18"/>
+                <path d="M24 6c5 6 8 12 8 18s-3 12-8 18"/>
+              </svg>
+            )}
+            {badge.icon === 'award' && (
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="var(--color-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="24" cy="20" r="12"/>
+                <polyline points="16.5 34 12 46 24 40 36 46 31.5 34"/>
+                <path d="M24 12l2.5 5 5.5.8-4 3.9.9 5.5L24 24.5l-4.9 2.7.9-5.5-4-3.9 5.5-.8z" fill="var(--color-secondary)" stroke="none"/>
+              </svg>
+            )}
+            {badge.icon === 'nar' && (
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="var(--color-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="6" y="6" width="36" height="36" rx="4"/>
+                <path d="M14 34V14l10 14 10-14v20"/>
+                <line x1="14" y1="38" x2="34" y2="38"/>
+              </svg>
+            )}
+            {badge.icon === 'board' && (
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="var(--color-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M8 14h32v26a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2z"/>
+                <path d="M8 14l4-8h24l4 8"/>
+                <line x1="16" y1="24" x2="32" y2="24"/>
+                <line x1="16" y1="32" x2="24" y2="32"/>
+                <circle cx="36" cy="10" r="3" fill="var(--color-secondary)" stroke="none"/>
+              </svg>
+            )}
+          </span>
+          <span class="trust-badge-label">{badge.label}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .trust-badges-section {
+    background: var(--color-cream-white, #FFFAF8);
+    padding: var(--space-xl, 6rem) 1.5rem;
+  }
+
+  .trust-badges-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .trust-badges-heading {
+    font-family: var(--font-display, 'Cinzel', serif);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    color: var(--color-charcoal, #2A2A2A);
+    margin-bottom: 3rem;
+    letter-spacing: 0.05em;
+  }
+
+  .trust-badges-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .trust-badge-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem 1.5rem;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(201, 168, 124, 0.3);
+    border-radius: var(--radius-md, 20px);
+    min-width: 160px;
+    flex: 1 1 160px;
+    max-width: 200px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .trust-badge-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(183, 110, 121, 0.15);
+    }
+  }
+
+  .trust-badge-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-secondary, #C9A87C);
+  }
+
+  .trust-badge-label {
+    font-family: var(--font-body, 'Josefin Sans', sans-serif);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-charcoal, #2A2A2A);
+    text-align: center;
+    line-height: 1.3;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 768px) {
+    .trust-badges-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .trust-badge-card {
+      max-width: none;
+    }
+
+    .trust-badge-card:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+      max-width: 200px;
+      margin: 0 auto;
+    }
+  }
+</style>

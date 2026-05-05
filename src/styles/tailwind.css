@@ -175,6 +175,8 @@
   text-transform: uppercase;
   letter-spacing: 0.2em;
   color: var(--color-primary-dark);
+  /* Override Tailwind's `.overline` utility (text-decoration: overline). */
+  text-decoration: none;
 }
 
 /* ═══════════════════════════════════════════════════════════════

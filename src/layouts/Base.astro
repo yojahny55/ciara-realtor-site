@@ -16,6 +16,7 @@ const {
 import { getAlternateUrl, getEnglishUrl } from '@/i18n';
 import type { Lang } from '@/i18n';
 import SpanishWelcomePopup from '@/components/islands/spanish-welcome-popup';
+import AnimatedBackground from '@/components/common/animated-background.astro';
 
 // Get current language from Astro i18n context
 const lang = (Astro.currentLocale ?? 'en') as Lang;
@@ -69,6 +70,9 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
       crossorigin
     />
 
+    <!-- DNS/TLS warm-up for Unsplash images used in hero and testimonials -->
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+
     <!-- Primary Meta Tags -->
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
@@ -98,6 +102,10 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
   <body>
     <!-- Skip to Main Content Link (Accessibility) -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Animated rose-gold orb backdrop (demo8 signature) — sits behind all content
+         so .section-bg-glass backdrop-filter has something colorful to frost. -->
+    <AnimatedBackground />
 
     <!-- Spanish Welcome Popup (Story 2.4) -->
     <!-- Only renders for first-time auto-detected Spanish visitors -->

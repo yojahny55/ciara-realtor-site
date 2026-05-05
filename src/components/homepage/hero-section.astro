@@ -87,7 +87,7 @@ const t = useTranslations(lang);
             <span></span><span></span><span></span>
           </div>
 
-          <!-- Main property image — luxury exterior -->
+          <!-- Main property image — luxury exterior (LCP element) -->
           <div class="img-main">
             <img
               src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&h=600&fit=crop&auto=format"
@@ -95,6 +95,8 @@ const t = useTranslations(lang);
               width="800"
               height="600"
               loading="eager"
+              fetchpriority="high"
+              decoding="async"
             />
           </div>
 
@@ -106,6 +108,7 @@ const t = useTranslations(lang);
               width="500"
               height="400"
               loading="lazy"
+              decoding="async"
             />
           </div>
 

@@ -96,6 +96,27 @@ export interface Translations {
   'testimonials.readMore': string;
   'testimonials.ariaLabel': string;
 
+  // Instagram Section
+  'instagram.overline': string;
+  'instagram.heading': string;
+  'instagram.subtitle': string;
+  'instagram.followCta': string;
+  'instagram.followAriaLabel': string;
+  'instagram.fallbackText': string;
+  'instagram.ariaLabel': string;
+
+  // Trust Badges Section
+  'trustBadges.heading': string;
+  'trustBadges.ariaLabel': string;
+  'trustBadges.homesSold': string;
+  'trustBadges.bilingual': string;
+  'trustBadges.topAgent': string;
+  'trustBadges.narCertified': string;
+  'trustBadges.localBoard': string;
+
+  // SEO
+  'seo.agentDescription': string;
+
   // Errors
   'error.notFound': string;
   'error.generic': string;
@@ -193,6 +214,27 @@ export const translations: Record<'en' | 'es', Translations> = {
     'testimonials.readMore': 'Read more',
     'testimonials.ariaLabel': 'Customer testimonials and reviews',
 
+    // Instagram Section
+    'instagram.overline': 'Follow Along',
+    'instagram.heading': 'On Instagram',
+    'instagram.subtitle': 'Behind-the-scenes glimpses of Tampa Bay homes, neighborhoods, and the journeys of the families I serve.',
+    'instagram.followCta': 'Follow on Instagram',
+    'instagram.followAriaLabel': 'Follow Ciara Ruiz on Instagram (opens in new tab)',
+    'instagram.fallbackText': "Posts can't load right now. Visit Instagram to see the latest.",
+    'instagram.ariaLabel': 'Recent Instagram posts and follow link',
+
+    // Trust Badges Section
+    'trustBadges.heading': 'Credentials & Achievements',
+    'trustBadges.ariaLabel': 'Agent credentials and achievements',
+    'trustBadges.homesSold': '100+ Homes Sold',
+    'trustBadges.bilingual': 'Fluent Bilingual',
+    'trustBadges.topAgent': 'Top 5% Tampa Agent',
+    'trustBadges.narCertified': 'NAR Certified',
+    'trustBadges.localBoard': 'Greater Tampa Realtors',
+
+    // SEO
+    'seo.agentDescription': 'Bilingual real estate agent serving Tampa Bay families with buy, sell, rent, and invest expertise.',
+
     // Errors
     'error.notFound': 'Page Not Found',
     'error.generic': 'Something went wrong',
@@ -287,6 +329,27 @@ export const translations: Record<'en' | 'es', Translations> = {
     'testimonials.subtitle': 'Experiencias reales de familias que encontraron el hogar de sus sueños',
     'testimonials.readMore': 'Leer más',
     'testimonials.ariaLabel': 'Testimonios y reseñas de clientes',
+
+    // Instagram Section
+    'instagram.overline': 'Síguenos',
+    'instagram.heading': 'En Instagram',
+    'instagram.subtitle': 'Vistazos detrás de cámaras de hogares y vecindarios en Tampa Bay y las historias de las familias a las que sirvo.',
+    'instagram.followCta': 'Síguenos en Instagram',
+    'instagram.followAriaLabel': 'Sigue a Ciara Ruiz en Instagram (se abre en una nueva pestaña)',
+    'instagram.fallbackText': 'Las publicaciones no se pueden cargar en este momento. Visita Instagram para ver lo último.',
+    'instagram.ariaLabel': 'Publicaciones recientes de Instagram y enlace para seguir',
+
+    // Trust Badges Section
+    'trustBadges.heading': 'Credenciales y Logros',
+    'trustBadges.ariaLabel': 'Credenciales y logros del agente',
+    'trustBadges.homesSold': '100+ Hogares Vendidos',
+    'trustBadges.bilingual': 'Totalmente Bilingüe',
+    'trustBadges.topAgent': 'Top 5% Agente Tampa',
+    'trustBadges.narCertified': 'Certificada NAR',
+    'trustBadges.localBoard': 'Greater Tampa Realtors',
+
+    // SEO
+    'seo.agentDescription': 'Agente de bienes raíces bilingüe que ayuda a familias de Tampa Bay a comprar, vender, alquilar e invertir con experiencia.',
 
     // Errors
     'error.notFound': 'Página No Encontrada',

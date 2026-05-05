@@ -1,0 +1,36 @@
+/* ═══════════════════════════════════════════════════════════════
+   SECTION BACKGROUNDS — Alternating glass-on-orbs effect
+   The orb backdrop in <AnimatedBackground /> provides the color;
+   .section-bg-glass frosts those orbs via backdrop-filter, while
+   .section-bg-clear lets them show through unmediated. No wavy
+   clip-paths — they created seam artifacts against the cream
+   palette and didn't read as glass-on-color the way demo8 does
+   (demo8's wider color range carries the silhouette; ours can't).
+═══════════════════════════════════════════════════════════════ */
+
+.section-bg {
+  position: relative;
+  z-index: 2;
+}
+
+/* Frosted glass surface — the orbs are blurred behind it */
+.section-bg-glass {
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+}
+
+/* Inner highlight gradient — gives the glass slight depth */
+.section-bg-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.08) 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Transparent — orbs read through directly */
+.section-bg-clear {
+  background: transparent;
+}

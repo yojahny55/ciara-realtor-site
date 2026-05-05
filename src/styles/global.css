@@ -17,6 +17,9 @@
 /* Tailwind v4 configuration */
 @import "./tailwind.css";
 
+/* Wavy glass section dividers (homepage assembly) */
+@import "./section-dividers.css";
+
 /* ═══════════════════════════════════════════════════════════════
    BASE RESET STYLES (demo8 - Glassmorphism)
 ═══════════════════════════════════════════════════════════════ */

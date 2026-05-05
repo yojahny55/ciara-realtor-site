@@ -1,0 +1,204 @@
+---
+import { useTranslations } from '@/i18n';
+import type { Lang } from '@/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const widgetId = import.meta.env.PUBLIC_ELFSIGHT_INSTAGRAM_ID ?? '';
+const profileUrl = import.meta.env.PUBLIC_INSTAGRAM_PROFILE_URL ?? 'https://www.instagram.com/';
+---
+
+<section
+  id="instagram"
+  class="instagram-section"
+  aria-label={t('instagram.ariaLabel')}
+>
+  <div class="instagram-container">
+
+    <div class="instagram-header">
+      <span class="overline">{t('instagram.overline')}</span>
+      <h2 class="instagram-title">{t('instagram.heading')}</h2>
+      <p class="instagram-subtitle">{t('instagram.subtitle')}</p>
+    </div>
+
+    {widgetId ? (
+      <div
+        class={`elfsight-app-${widgetId}`}
+        data-elfsight-app-lazy
+        style="min-height: 420px;"
+      ></div>
+    ) : (
+      <p class="instagram-fallback">{t('instagram.fallbackText')}</p>
+    )}
+
+    <div class="instagram-footer">
+      <a
+        class="instagram-follow-btn"
+        href={profileUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={t('instagram.followAriaLabel')}
+      >
+        <span aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+        </span>
+        <span>{t('instagram.followCta')}</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+{widgetId && (
+  <script is:inline async src="https://elfsightcdn.com/platform.js"></script>
+)}
+
+<style>
+  /* ─── Section ─────────────────────────────────────────────── */
+  .instagram-section {
+    position: relative;
+    padding: var(--space-xl, 8rem) 0;
+    background: transparent;
+  }
+
+  /* ─── Container ──────────────────────────────────────────── */
+  .instagram-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ─── Header ─────────────────────────────────────────────── */
+  .instagram-header {
+    text-align: center;
+    margin-bottom: 6rem;
+  }
+
+  .overline {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-primary, #B76E79);
+    margin-bottom: 1rem;
+    /* Tailwind ships an `.overline` utility (text-decoration: overline);
+       explicit reset prevents the line-above-text artifact from leaking in. */
+    text-decoration: none;
+  }
+
+  /* ─── Gradient heading (demo8 signature) ─────────────────── */
+  .instagram-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+    background: linear-gradient(135deg, var(--color-primary, #B76E79) 0%, var(--color-secondary, #C9A87C) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1.25rem;
+  }
+
+  .instagram-subtitle {
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #4A4A4A;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  /* ─── Widget mount (CLS prevention) ─────────────────────── */
+  [class^="elfsight-app-"] {
+    display: block;
+    min-height: 420px;
+  }
+
+  /* ─── Fallback ───────────────────────────────────────────── */
+  .instagram-fallback {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: #6A6A6A;
+    text-align: center;
+    padding: 3rem 0;
+  }
+
+  /* ─── Footer ─────────────────────────────────────────────── */
+  .instagram-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-lg, 3rem);
+  }
+
+  /* ─── Follow button — Instagram brand gradient ───────────── */
+  .instagram-follow-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm, 0.75rem);
+    min-height: 44px;
+    padding: 1rem 1.75rem;
+    background: linear-gradient(135deg, #833AB4 0%, #E1306C 50%, #F77737 100%);
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: var(--radius-sm, 12px);
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(131, 58, 180, 0.3);
+    transition: transform var(--duration-normal, 0.3s) var(--ease-smooth, ease),
+                box-shadow var(--duration-normal, 0.3s) var(--ease-smooth, ease);
+  }
+
+  .instagram-follow-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(131, 58, 180, 0.4);
+  }
+
+  .instagram-follow-btn svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  /* ─── Responsive ─────────────────────────────────────────── */
+  @media (max-width: 767px) {
+    .instagram-section {
+      padding: 6rem 0;
+    }
+
+    [class^="elfsight-app-"] {
+      min-height: 560px;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    [class^="elfsight-app-"] {
+      min-height: 480px;
+    }
+  }
+
+  /* ─── Reduced motion ─────────────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    .instagram-follow-btn {
+      transition: none;
+    }
+
+    .instagram-follow-btn:hover {
+      transform: none;
+      box-shadow: 0 4px 20px rgba(131, 58, 180, 0.3);
+    }
+  }
+</style>

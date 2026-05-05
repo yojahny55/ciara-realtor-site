@@ -1,0 +1,56 @@
+---
+import { useTranslations } from '@/i18n';
+import type { Lang } from '@/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const siteUrl = Astro.site?.origin ?? 'https://ciararuiz.com';
+const breadcrumbName = lang === 'en' ? 'Home' : 'Inicio';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'RealEstateAgent',
+      '@id': `${siteUrl}/#agent`,
+      name: 'Ciara Ruiz',
+      url: siteUrl,
+      image: `${siteUrl}/og-default.jpg`,
+      areaServed: [
+        { '@type': 'City', name: 'Tampa' },
+        { '@type': 'City', name: 'Brandon' },
+        { '@type': 'City', name: 'Riverview' },
+        { '@type': 'City', name: 'St. Petersburg' },
+      ],
+      knowsLanguage: ['en', 'es'],
+      description: t('seo.agentDescription'),
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      url: siteUrl,
+      name: 'Ciara Ruiz Real Estate',
+      inLanguage: [lang],
+      publisher: { '@id': `${siteUrl}/#agent` },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: breadcrumbName,
+          item: `${siteUrl}/${lang}/`,
+        },
+      ],
+    },
+  ],
+};
+---
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
